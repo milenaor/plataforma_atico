@@ -696,8 +696,38 @@ function AticoPlatform() {
                   Centro de Convergencia Creativa · Universidad Javeriana
                 </div>
                 <h1 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "clamp(24px, 4vw, 42px)", fontWeight: 800, letterSpacing: "-0.03em", color: "#fff", lineHeight: 1.1, marginBottom: 12 }}>
-                  Visualiza los espacios, equipos y proyectos
+                  ¿Qué te gustaría crear con Ático?
                 </h1>
+                <div style={{ margin: "8px auto 12px", maxWidth: 640, position: 'relative' }}>
+                  <input
+                    aria-label="Buscar proyectos"
+                    placeholder="Busca proyectos, palabras clave o espacios..."
+                    value={searchQuery}
+                    onChange={e => setSearchQuery(e.target.value)}
+                    onKeyDown={e => { if (e.key === 'Escape') setSearchQuery(''); }}
+                    style={{ width: '100%', padding: '12px 16px', borderRadius: 12, border: '1px solid rgba(255,255,255,0.06)', background: 'rgba(255,255,255,0.03)', color: '#fff', outline: 'none', fontSize: 14 }}
+                  />
+                  {searchQuery && (
+                    <div style={{ position: 'absolute', left: 0, right: 0, top: '54px', background: 'rgba(0,0,0,0.9)', border: '1px solid rgba(255,255,255,0.04)', borderRadius: 12, maxHeight: 260, overflow: 'auto', zIndex: 40 }}>
+                      {proyectosData.filter(p => {
+                        const q = searchQuery.toLowerCase();
+                        return p.nombre.toLowerCase().includes(q) || (p.descripcion || '').toLowerCase().includes(q) || (p.tags || []).some(t => t.toLowerCase().includes(q));
+                      }).slice(0, 8).map(p => (
+                        <div key={p.id} onClick={() => { setSelectedItem(p); setSelectedType('proyecto'); setSearchQuery(p.nombre); }}
+                          style={{ padding: 12, borderBottom: '1px solid rgba(255,255,255,0.03)', cursor: 'pointer', color: '#fff', display: 'flex', flexDirection: 'column' }}>
+                          <div style={{ fontSize: 14, fontWeight: 700 }}>{p.nombre}</div>
+                          <div style={{ fontSize: 12, color: '#ffffff88', marginTop: 6 }}>{(p.descripcion || '').substring(0, 90)}</div>
+                        </div>
+                      ))}
+                      {proyectosData.filter(p => {
+                        const q = searchQuery.toLowerCase();
+                        return p.nombre.toLowerCase().includes(q) || (p.descripcion || '').toLowerCase().includes(q) || (p.tags || []).some(t => t.toLowerCase().includes(q));
+                      }).length === 0 && (
+                        <div style={{ padding: 12, color: '#ffffff66' }}>No se encontraron proyectos</div>
+                      )}
+                    </div>
+                  )}
+                </div>
                 <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "#ffffff66", marginBottom: 0, lineHeight: 1.6 }}>
                   Arrastra para rotar • Scroll para zoom • Usa botones + y − para controlar
                 </p>
