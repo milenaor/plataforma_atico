@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import talentoData from "./talento_humano.json";
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
 
@@ -69,18 +70,10 @@ const proyectosData = [
   { id: "PROY_020", nombre: "Producción de Videoclips y Contenido Musical Visual", categoria: "produccion", subcategoria: "videoclip", descripcion: "Producción de videoclips y contenido audiovisual para artistas y sellos discográficos.", tags: ["videoclip", "música", "visual", "artistas"], espacios: ["ESP_013", "ESP_014", "ESP_016"], equipos: ["EQ_017", "EQ_018", "EQ_008", "EQ_014"] },
 ];
 
-const talentoSample = [
-  { id: "ID_ATICO_OP_001", area: "Operaciones", perfil: "Soporte técnico operativo y gestión de infraestructura", palabras: "Responsable, estructurado y proactivo" },
-  { id: "ID_ATICO_PRO_001", area: "Producción", perfil: "Gestión de proyectos y personas", palabras: "Rigor, espontáneo y directo" },
-  { id: "ID_ATICO_PRO_002", area: "Producción", perfil: "Coordinador Lab. Digitalización", palabras: "Guionista, director, docente" },
-  { id: "ID_ATICO_PRO_003", area: "Producción", perfil: "Editor y postproducción", palabras: "Editor, comunicador, apasionado" },
-  { id: "ID_ATICO_PRO_004", area: "Producción", perfil: "Colorización y postproducción avanzada", palabras: "Técnico, creativo, detallista" },
-  { id: "ID_ATICO_PRO_005", area: "Producción", perfil: "Operador de cámara, cinematógrafo", palabras: "Visual, preciso, narrativo" },
-  { id: "ID_ATICO_CONT_001", area: "Contenidos", perfil: "Conceptualización y diseño de contenidos", palabras: "Creativo, estratégico, cultural" },
-  { id: "ID_ATICO_CONT_002", area: "Contenidos", perfil: "Realizador audiovisual", palabras: "Realizador, innovador, comprometido" },
-  { id: "ID_ATICO_CONT_003", area: "Contenidos", perfil: "Coordinación de contenidos y talleres", palabras: "Colaborativo, pedagógico, versátil" },
-  { id: "ID_ATICO_AV_001", area: "Ambientes Virtuales", perfil: "Diseño de experiencias virtuales de aprendizaje", palabras: "Digital, pedagógico, innovador" },
-];
+const talentoSample = talentoData.map(item => ({
+  id: item.id_atico || item.id || item.numero,
+  ...item,
+}));
 
 // ─── COLOR MAP ────────────────────────────────────────────────────────────────
 const COLORS = {
@@ -422,7 +415,7 @@ function DetailPanel({ item, type, onClose }) {
       <button onClick={onClose} style={{ position: "absolute", top: 20, right: 20, background: "none", border: "none", color: "#fff6", fontSize: 24, cursor: "pointer" }}>✕</button>
       <div style={{ width: 40, height: 3, background: color, marginBottom: 24, borderRadius: 2 }} />
       <div style={{ fontSize: 11, fontFamily: "'DM Mono', monospace", color: color, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 12 }}>{type}</div>
-      <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 22, fontWeight: 700, color: "#fff", lineHeight: 1.3, marginBottom: 16 }}>{item.nombre || item.area}</h2>
+      <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 22, fontWeight: 700, color: "#fff", lineHeight: 1.3, marginBottom: 16 }}>{item.nombre || item.perfil || item.area}</h2>
       {item.descripcion && <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "#ffffff99", lineHeight: 1.7, marginBottom: 24 }}>{item.descripcion}</p>}
       {item.tags && (
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 24 }}>
@@ -430,7 +423,36 @@ function DetailPanel({ item, type, onClose }) {
         </div>
       )}
       {item.subcategoria && <div style={{ color: "#ffffff44", fontSize: 12, fontFamily: "'DM Mono', monospace" }}>CATEGORÍA: {item.subcategoria.toUpperCase()}</div>}
-      {item.palabras && <div style={{ marginTop: 16, padding: 16, background: color + "11", borderRadius: 12, border: `1px solid ${color}22`, color: "#ffffffbb", fontSize: 13, fontFamily: "'DM Sans', sans-serif", fontStyle: "italic" }}>"{item.palabras}"</div>}
+      {type === "talento" && (
+        <div style={{ marginTop: 16, display: "grid", gap: 14, marginBottom: 24 }}>
+          {[
+            ["ID Ático", item.id_atico || item.id],
+            ["Número", item.numero],
+            ["Área", item.area],
+            ["Rol principal", item.rol_principal],
+            ["Tiempo en Ático", item.tiempo_en_atico],
+            ["Actividades frecuentes", item.actividades_frecuentes],
+            ["Proyectos frecuentes", item.proyectos_frecuentes],
+            ["Proyectos positivos", item.proyectos_positivos],
+            ["Equipos utilizados", item.equipos_utilizados],
+            ["Software / tecnologías", item.software_tecnologias],
+            ["Espacios de trabajo", item.espacios_trabajo],
+            ["Proyectos preferidos", item.proyectos_preferidos],
+            ["Áreas a explorar", item.areas_explorar],
+            ["Otras habilidades", item.otras_habilidades],
+            ["Proyectos de mayor aporte", item.proyectos_mayor_aporte],
+            ["Nuevos proyectos", item.nuevos_proyectos],
+            ["Característica destacada", item.caracteristica_destacada],
+            ["Perfil en 3 palabras", item.perfil_tres_palabras],
+          ].filter(([_, value]) => value).map(([label, value]) => (
+            <div key={label}>
+              <div style={{ fontSize: 11, color: "#ffffff44", fontFamily: "'DM Mono', monospace", textTransform: "uppercase", letterSpacing: "0.18em", marginBottom: 6 }}>{label}</div>
+              <div style={{ fontSize: 14, color: "#ffffffcc", lineHeight: 1.7 }}>{value}</div>
+            </div>
+          ))}
+        </div>
+      )}
+      {item.palabras && <div style={{ marginTop: 16, padding: 16, background: color + "11", borderRadius: 12, border: `1px solid ${color}22`, color: "#ffffffbb", fontSize: 13, fontFamily: "'DM Sans', sans-serif", fontStyle: "italic" }}><q>{item.palabras}</q></div>}
     </div>
   );
 }
@@ -439,17 +461,67 @@ function DetailPanel({ item, type, onClose }) {
 function CardsGrid({ data, type, color, onSelect }) {
   return (
     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 16, padding: "0 0 32px" }}>
-      {data.map(item => (
-        <div key={item.id} onClick={() => onSelect(item, type)}
-          style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${color}33`, borderRadius: 16, padding: 20, cursor: "pointer", transition: "all 0.2s ease", position: "relative", overflow: "hidden" }}
-          onMouseEnter={e => { e.currentTarget.style.background = color + "15"; e.currentTarget.style.borderColor = color + "88"; }}
-          onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.03)"; e.currentTarget.style.borderColor = color + "33"; }}>
-          <div style={{ width: 6, height: 6, borderRadius: "50%", background: color, marginBottom: 12 }} />
-          <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 600, fontSize: 15, color: "#fff", lineHeight: 1.4, marginBottom: 8 }}>{item.nombre || item.area || item.perfil}</div>
-          <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "#ffffff66", lineHeight: 1.6 }}>{(item.descripcion || item.palabras || "").substring(0, 90)}…</div>
-          {item.subcategoria && <div style={{ marginTop: 12, fontSize: 10, fontFamily: "'DM Mono', monospace", color: color + "99", letterSpacing: "0.15em" }}>{item.subcategoria.toUpperCase()}</div>}
-        </div>
-      ))}
+      {data.map(item => {
+        const getRolDescription = () => {
+          if (type === "talento") {
+            const rol = item.rol_principal;
+            let short = rol;
+            
+            // Si el rol es muy corto o genérico, usar actividades frecuentes
+            if (!rol || rol.length < 15 || rol === "Facilitador" || rol === "Técnico") {
+              short = item.actividades_frecuentes || item.area;
+            }
+            
+            // Toma solo la primera línea (hasta el primer punto)
+            if (short && short.includes('.')) {
+              short = short.split('.')[0];
+            }
+            
+            // Limita a 75 caracteres máximo
+            if (short && short.length > 75) {
+              short = short.substring(0, 72).trim() + '...';
+            }
+            
+            return short || item.area || 'Profesional';
+          }
+          return item.rol_principal || item.descripcion || "";
+        };
+        const getDescription = () => {
+          if (type === "talento") {
+            return item.caracteristica_destacada || item.actividades_frecuentes?.substring(0, 60) || "";
+          }
+          return item.descripcion || "";
+        };
+        const getSecondaryInfo = () => {
+          if (type === "talento") {
+            const espacios = item.espacios_trabajo?.split(';')[0]?.trim();
+            return `${item.area}${espacios ? ' • ' + espacios : ''}`;
+          }
+          return item.area || "";
+        };
+        return (
+          <div key={item.id} onClick={() => onSelect(item, type)}
+            style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${color}33`, borderRadius: 16, padding: 20, cursor: "pointer", transition: "all 0.2s ease", position: "relative", overflow: "hidden" }}
+            onMouseEnter={e => { e.currentTarget.style.background = color + "15"; e.currentTarget.style.borderColor = color + "88"; }}
+            onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.03)"; e.currentTarget.style.borderColor = color + "33"; }}>
+            <div style={{ width: 6, height: 6, borderRadius: "50%", background: color, marginBottom: 12 }} />
+            {type === "talento" ? (
+              <>
+                <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, color: color + "99", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 6 }}>{item.area}</div>
+                <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 600, fontSize: 15, color: "#fff", lineHeight: 1.3, marginBottom: 10 }}>{getRolDescription()}</div>
+                <div style={{ fontSize: 10, color: "#ffffff66", fontFamily: "'DM Mono', monospace", lineHeight: 1.4, marginBottom: 10 }}>{getSecondaryInfo()}</div>
+                <div style={{ fontSize: 12, color: "#ffffff88", lineHeight: 1.5 }}>{getDescription()}</div>
+              </>
+            ) : (
+              <>
+                <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 600, fontSize: 15, color: "#fff", lineHeight: 1.4, marginBottom: 8 }}>{item.perfil || item.nombre || item.area}</div>
+                <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "#ffffff66", lineHeight: 1.6 }}>{(item.rol_principal || item.descripcion || item.palabras || item.proyectos_frecuentes || item.actividades_frecuentes || "").substring(0, 90)}…</div>
+                {item.area && item.perfil && <div style={{ marginTop: 12, fontSize: 10, fontFamily: "'DM Mono', monospace", color: color + "99", letterSpacing: "0.15em" }}>{item.area.toUpperCase()}</div>}
+              </>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 }
