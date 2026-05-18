@@ -502,7 +502,7 @@ function Graph3D({ activeSection, searchQuery, zoom, onZoomChange, onNodeClick }
 // ─── COMPONENT: DETAIL PANEL ─────────────────────────────────────────────────
 function DetailPanel({ item, type, onClose }) {
   if (!item) return null;
-  const color = type === "proyecto" ? (CAT_COLORS[item.categoria] || COLORS.proyecto) : type === "espacio" ? COLORS.espacio : type === "equipo" ? COLORS.equipo : COLORS.talento;
+  const color = type === "proyecto" ? COLORS.proyecto : type === "espacio" ? COLORS.espacio : type === "equipo" ? COLORS.equipo : COLORS.talento;
   const relatedSpaces = item.espacios?.map(id => espaciosData.find(s => s.id === id)).filter(Boolean) || [];
   const relatedEquipos = item.equipos?.map(id => equiposData.find(e => e.id === id)).filter(Boolean) || [];
   const relatedTalento = type === "proyecto" ? resolveProjectTalent(item) : [];
