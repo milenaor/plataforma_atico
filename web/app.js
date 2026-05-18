@@ -705,7 +705,7 @@ function AticoPlatform() {
                     value={searchQuery}
                     onChange={e => setSearchQuery(e.target.value)}
                     onKeyDown={e => { if (e.key === 'Escape') setSearchQuery(''); }}
-                    style={{ width: '100%', padding: '12px 16px', borderRadius: 12, border: '1px solid rgba(255,255,255,0.06)', background: 'rgba(255,255,255,0.03)', color: '#fff', outline: 'none', fontSize: 14 }}
+                    style={{ width: '100%', padding: '12px 16px', borderRadius: 12, border: '1.5px solid rgba(255,255,255,0.55)', background: 'rgba(255,255,255,0.03)', color: '#fff', outline: 'none', fontSize: 14 }}
                   />
                   {searchQuery && (
                     <div style={{ position: 'absolute', left: 0, right: 0, top: '54px', background: 'rgba(0,0,0,0.9)', border: '1px solid rgba(255,255,255,0.04)', borderRadius: 12, maxHeight: 260, overflow: 'auto', zIndex: 40 }}>
@@ -728,8 +728,8 @@ function AticoPlatform() {
                     </div>
                   )}
                 </div>
-                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "#ffffff66", marginBottom: 0, lineHeight: 1.6 }}>
-                  Arrastra para rotar • Scroll para zoom • Usa botones + y − para controlar
+                <p style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, color: "#ffffff33", marginBottom: 0, letterSpacing: "0.04em", marginTop: 6 }}>
+                  Arrastra para rotar · Scroll para zoom · Usa botones + y − para controlar
                 </p>
               </div>
             </div>

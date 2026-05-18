@@ -670,10 +670,13 @@ export default function AticoPlatform() {
                 value={searchInput}
                 onChange={e => setSearchInput(e.target.value)}
                 placeholder="Describe tu proyecto o idea creativa…"
-                style={{ width: "100%", padding: "18px 60px 18px 24px", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.15)", borderRadius: 16, color: "#fff", fontSize: 16, fontFamily: "'DM Sans', sans-serif", outline: "none", backdropFilter: "blur(10px)" }}
+                style={{ width: "100%", padding: "18px 60px 18px 24px", background: "rgba(255,255,255,0.06)", border: "1.5px solid rgba(255,255,255,0.55)", borderRadius: 16, color: "#fff", fontSize: 16, fontFamily: "'DM Sans', sans-serif", outline: "none", backdropFilter: "blur(10px)" }}
               />
               <button type="submit" style={{ position: "absolute", right: 8, top: "50%", transform: "translateY(-50%)", width: 40, height: 40, borderRadius: 10, background: "linear-gradient(135deg, #00FF94, #00C2FF)", border: "none", cursor: "pointer", fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center" }}>→</button>
             </form>
+            <div style={{ color: "#ffffff33", fontSize: 11, fontFamily: "'DM Mono', monospace", textAlign: "center", marginTop: -16, marginBottom: 20, letterSpacing: "0.04em" }}>
+              Arrastra para rotar · Scroll para zoom · Usa botones + y − para controlar
+            </div>
 
             {/* QUICK OPTIONS */}
             <div style={{ display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "center" }}>
@@ -696,7 +699,6 @@ export default function AticoPlatform() {
                 {l.toUpperCase()}
               </div>
             ))}
-            <div style={{ color: "#ffffff33", fontSize: 10, fontFamily: "'DM Mono', monospace" }}>· Arrastra para rotar · Scroll para zoom ·</div>
           </div>
         </div>
       ) : (
