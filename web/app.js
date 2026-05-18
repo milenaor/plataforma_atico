@@ -253,7 +253,7 @@ function Graph3D({ activeSection, searchQuery, zoom, onZoomChange, onNodeClick }
   useEffect(() => {
     const sampleEspacios = espaciosData;
     const sampleEquipos = equiposData;
-    const sampleTalento = talentoSample.slice(0, 16);
+    const sampleTalento = talentoSample;
     const sampleProyectos = proyectosData;
 
     const nodes = [];
@@ -333,10 +333,11 @@ function Graph3D({ activeSection, searchQuery, zoom, onZoomChange, onNodeClick }
       return { px: canvas.width / 2 + x2 * scale, py: canvas.height / 2 + y2 * scale, scale, z: z3 };
     };
 
-    const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
-    const easeOutQuint = t => 1 - Math.pow(1 - t, 5);
-    const ANIM_TOTAL = 1.6; // unidades totales de progreso (incluye todos los startT + 1.0)
-    const ANIM_SPEED = 0.008; // incremento por frame (~3.3s a 60fps)
+    // easeOutBack: llega al destino con ~10% de overshoot antes de asentarse (efecto explosión)
+    const easeOutBack = t => 1 + 2.70158 * Math.pow(t - 1, 3) + 1.70158 * Math.pow(t - 1, 2);
+    const ANIM_TOTAL = 1.0;
+    const ANIM_SPEED = 0.014; // ~1.2s a 60fps
+    const CLUSTER_MIN = 0.01; // escala inicial: todos los nodos muy juntos
 
     const draw = () => {
       const s = stateRef.current;
@@ -354,18 +355,18 @@ function Graph3D({ activeSection, searchQuery, zoom, onZoomChange, onNodeClick }
       }
 
       // Rotación automática suave (solo tras completar expansión)
-      if (!s.dragging && s.autoRot) s.rotY += 0.003;
+      if (!s.dragging && s.autoRot) s.rotY += 0.0008;
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       const q = searchQuery?.toLowerCase() || "";
 
-      // Proyectar cada nodo con su posición interpolada
+      // Explosión: todos los nodos parten juntos desde CLUSTER_MIN y explotan a su posición final
+      const explodeT = Math.min(1, s.animProgress);
+      const explodeScale = CLUSTER_MIN + (1 - CLUSTER_MIN) * easeOutBack(explodeT);
+      const fadeIn = Math.min(1, s.animProgress * 5);
       const projected = nodesRef.current.map(n => {
-        const rawT = Math.max(0, Math.min(1, (s.animProgress - (n.startT || 0)) / 1.0));
-        const eased = easeOutQuint(rawT);
-        const fadeIn = Math.min(1, rawT * 6); // aparece rápido al inicio del nodo
-        return { ...n, ...project(n.x * eased, n.y * eased, n.z * eased), animEased: eased, fadeIn };
+        return { ...n, ...project(n.x * explodeScale, n.y * explodeScale, n.z * explodeScale), animEased: explodeScale, fadeIn };
       });
       projected.sort((a, b) => a.z - b.z);
       projectedRef.current = projected;
@@ -784,7 +785,7 @@ function AticoPlatform() {
 
             {/* GRAPH CONTAINER */}
             <div style={{ flex: 1, position: "relative", overflow: "hidden" }}>
-              <Graph3D activeSection={activeSection} searchQuery={searchQuery} zoom={graphZoom} onZoomChange={setGraphZoom} onNodeClick={handleNodeClick} />
+              {!showIntro && <Graph3D activeSection={activeSection} searchQuery={searchQuery} zoom={graphZoom} onZoomChange={setGraphZoom} onNodeClick={handleNodeClick} />}
               
               {/* ZOOM CONTROLS */}
               <div style={{ position: "absolute", bottom: 24, right: 32, display: "flex", flexDirection: "column", gap: 8, zIndex: 20 }}>
