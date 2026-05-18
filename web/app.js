@@ -99,13 +99,13 @@ const CAT_COLORS = {
 };
 
 const TALENTO_BY_CATEGORY = {
-  produccion: ["ID_ATICO_PRO_001", "ID_ATICO_PRO_003", "ID_ATICO_PRO_005"],
-  archivo: ["ID_ATICO_PRO_002", "ID_ATICO_PRO_003"],
-  desarrollo: ["ID_ATICO_AV_001", "ID_ATICO_PRO_001", "ID_ATICO_CONT_002"],
-  contenidos: ["ID_ATICO_CONT_001", "ID_ATICO_CONT_002", "ID_ATICO_CONT_003"],
-  formacion: ["ID_ATICO_PRO_002", "ID_ATICO_CONT_003", "ID_ATICO_AV_001"],
-  ambientes_virtuales: ["ID_ATICO_AV_001", "ID_ATICO_PRO_001"],
-  inteligencia_negocio: ["ID_ATICO_CONT_001", "ID_ATICO_AV_001"],
+  produccion: ["ID_ATICO_PRO_001", "ID_ATICO_PRO_002", "ID_ATICO_PRO_003"],
+  archivo: ["ID_ATICO_PRO_002", "ID_ATICO_PRO_003", "ID_ATICO_OP_001"],
+  desarrollo: ["ID_ATICO_AMV_001", "ID_ATICO_PRO_001", "ID_ATICO_PRO_003"],
+  contenidos: ["ID_ATICO_PRO_001", "ID_ATICO_PRO_002", "ID_ATICO_AMV_001"],
+  formacion: ["ID_ATICO_OP_003", "ID_ATICO_OP_004", "ID_ATICO_AMV_001"],
+  ambientes_virtuales: ["ID_ATICO_AMV_001", "ID_ATICO_PRO_001", "ID_ATICO_OP_004"],
+  inteligencia_negocio: ["ID_ATICO_AMV_001", "ID_ATICO_PRO_001", "ID_ATICO_OP_001"],
 };
 
 function resolveProjectTalent(item) {
@@ -251,36 +251,42 @@ function Graph3D({ activeSection, searchQuery, zoom, onZoomChange, onNodeClick }
   const projectedRef = useRef([]);
 
   useEffect(() => {
-    const sampleEspacios = espaciosData.slice(0, 8);
-    const sampleEquipos = equiposData.slice(0, 10);
-    const sampleTalento = talentoSample.slice(0, 8);
-    const sampleProyectos = proyectosData.slice(0, 12);
+    const sampleEspacios = espaciosData;
+    const sampleEquipos = equiposData;
+    const sampleTalento = talentoSample.slice(0, 16);
+    const sampleProyectos = proyectosData;
 
     const nodes = [];
-    const spread = 320;
 
+    // Proyectos: distribución Fibonacci esférica — garantiza máxima separación entre 20 nodos
+    const goldenAngle = Math.PI * (3 - Math.sqrt(5));
     sampleProyectos.forEach((p, i) => {
-      const angle = (i / sampleProyectos.length) * Math.PI * 2;
-      const r = 100 + Math.random() * 60;
-      nodes.push({ id: p.id, label: p.nombre.substring(0, 22) + "…", type: "proyecto", color: CAT_COLORS[p.categoria] || COLORS.proyecto, x: Math.cos(angle) * r, y: (Math.random() - 0.5) * 80, z: Math.sin(angle) * r, data: p, size: 16 });
+      const azimuth = i * goldenAngle;
+      const t = sampleProyectos.length > 1 ? i / (sampleProyectos.length - 1) : 0.5;
+      const elevation = (t - 0.5) * Math.PI * 0.62;
+      const r = 175 + (i % 3) * 18;
+      nodes.push({ id: p.id, label: p.nombre.substring(0, 22) + "…", type: "proyecto", color: COLORS.proyecto, x: Math.cos(azimuth) * Math.cos(elevation) * r, y: Math.sin(elevation) * r, z: Math.sin(azimuth) * Math.cos(elevation) * r, data: p, size: 19 });
     });
 
+    // Espacios: hemisferio superior
     sampleEspacios.forEach((e, i) => {
-      const angle = (i / sampleEspacios.length) * Math.PI * 2 + 0.3;
-      const r = 200 + Math.random() * 80;
-      nodes.push({ id: e.id, label: e.nombre.substring(0, 20), type: "espacio", color: COLORS.espacio, x: Math.cos(angle) * r, y: (Math.random() - 0.5) * 120, z: Math.sin(angle) * r, data: e, size: 10 });
+      const angle = (i / sampleEspacios.length) * Math.PI * 2 + 0.4;
+      const r = 245 + Math.random() * 50;
+      nodes.push({ id: e.id, label: e.nombre.substring(0, 20), type: "espacio", color: COLORS.espacio, x: Math.cos(angle) * r, y: 170 + Math.random() * 100, z: Math.sin(angle) * r, data: e, size: 9 });
     });
 
+    // Equipos: hemisferio inferior
     sampleEquipos.forEach((e, i) => {
-      const angle = (i / sampleEquipos.length) * Math.PI * 2 + 0.8;
-      const r = 280 + Math.random() * 60;
-      nodes.push({ id: e.id, label: e.nombre.substring(0, 18), type: "equipo", color: COLORS.equipo, x: Math.cos(angle) * r, y: (Math.random() - 0.5) * 100, z: Math.sin(angle) * r, data: e, size: 10 });
+      const angle = (i / sampleEquipos.length) * Math.PI * 2 + 0.9;
+      const r = 245 + Math.random() * 50;
+      nodes.push({ id: e.id, label: e.nombre.substring(0, 18), type: "equipo", color: COLORS.equipo, x: Math.cos(angle) * r, y: -170 - Math.random() * 100, z: Math.sin(angle) * r, data: e, size: 9 });
     });
 
+    // Talento: anillo exterior ecuatorial
     sampleTalento.forEach((t, i) => {
-      const angle = (i / sampleTalento.length) * Math.PI * 2 + 1.2;
-      const r = 230 + Math.random() * 70;
-      nodes.push({ id: t.id, label: t.area, type: "talento", color: COLORS.talento, x: Math.cos(angle) * r, y: (Math.random() - 0.5) * 90, z: Math.sin(angle) * r, data: t, size: 9 });
+      const angle = (i / sampleTalento.length) * Math.PI * 2 + 1.3;
+      const r = 275 + Math.random() * 40;
+      nodes.push({ id: t.id, label: t.area, type: "talento", color: COLORS.talento, x: Math.cos(angle) * r, y: (Math.random() - 0.5) * 60, z: Math.sin(angle) * r, data: t, size: 9 });
     });
 
     const edges = [];
@@ -290,6 +296,9 @@ function Graph3D({ activeSection, searchQuery, zoom, onZoomChange, onNodeClick }
       });
       (p.equipos || []).slice(0, 3).forEach(eid => {
         if (nodes.find(n => n.id === eid)) edges.push({ from: p.id, to: eid, color: COLORS.equipo + "55" });
+      });
+      resolveProjectTalent(p).slice(0, 3).forEach(t => {
+        if (nodes.find(n => n.id === t.id)) edges.push({ from: p.id, to: t.id, color: COLORS.talento + "55" });
       });
     });
 
@@ -348,11 +357,12 @@ function Graph3D({ activeSection, searchQuery, zoom, onZoomChange, onNodeClick }
         const alpha = (!isMatch && q) ? 0.12 : (isActive ? 1 : 0.25);
         const r = n.size * n.scale * (isMatch && q ? 1.6 : 1);
 
-        const grd = ctx.createRadialGradient(n.px, n.py, 0, n.px, n.py, r * 3);
+        const glowMult = n.type === "proyecto" ? 2.2 : 2.8;
+        const grd = ctx.createRadialGradient(n.px, n.py, 0, n.px, n.py, r * glowMult);
         grd.addColorStop(0, n.color + Math.round(alpha * 220).toString(16).padStart(2, "0"));
         grd.addColorStop(1, n.color + "00");
         ctx.beginPath();
-        ctx.arc(n.px, n.py, r * 3, 0, Math.PI * 2);
+        ctx.arc(n.px, n.py, r * glowMult, 0, Math.PI * 2);
         ctx.fillStyle = grd;
         ctx.fill();
 
@@ -361,9 +371,9 @@ function Graph3D({ activeSection, searchQuery, zoom, onZoomChange, onNodeClick }
         ctx.fillStyle = n.color + Math.round(alpha * 255).toString(16).padStart(2, "0");
         ctx.fill();
 
-        if ((n.type === "proyecto" || n.scale > 0.8) && isActive) {
+        if (((n.type === "proyecto" && n.scale > 0.78) || n.scale > 0.95) && isActive) {
           ctx.fillStyle = `rgba(255,255,255,${alpha * 0.85})`;
-          const fontSize = n.type === "proyecto" ? Math.max(11, 12 * n.scale) : Math.max(9, 9 * n.scale);
+          const fontSize = n.type === "proyecto" ? Math.max(11, 13 * n.scale) : Math.max(8, 9 * n.scale);
           ctx.font = `${fontSize}px 'DM Mono', monospace`;
           ctx.textAlign = "center";
           ctx.fillText(n.label, n.px, n.py + r + fontSize * 1.1);
