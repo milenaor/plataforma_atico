@@ -244,7 +244,7 @@ function IntroAnimation({ onFinish }) {
 // ─── COMPONENT: 3D GRAPH ─────────────────────────────────────────────────────
 function Graph3D({ activeSection, searchQuery, zoom, onZoomChange, onNodeClick }) {
   const canvasRef = useRef(null);
-  const stateRef = useRef({ rotX: 0.3, rotY: 0.4, dragging: false, moved: false, lastX: 0, lastY: 0, autoRot: false, zoom: zoom || 1, animProgress: 0 });
+  const stateRef = useRef({ rotX: 0.3, rotY: 0.4, dragging: false, moved: false, lastX: 0, lastY: 0, autoRot: false, zoom: zoom || 1, animProgress: 0, perspProgress: 0, perspDelay: 0 });
   const animRef = useRef(null);
   const nodesRef = useRef([]);
   const edgesRef = useRef([]);
@@ -316,8 +316,10 @@ function Graph3D({ activeSection, searchQuery, zoom, onZoomChange, onNodeClick }
     resize();
     window.addEventListener("resize", resize);
 
+    const easeInOutCubic = t => t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3) / 2;
+
     const project = (x, y, z) => {
-      const { rotX, rotY, zoom } = stateRef.current;
+      const { rotX, rotY, zoom, perspProgress } = stateRef.current;
       const cosX = Math.cos(rotX), sinX = Math.sin(rotX);
       const cosY = Math.cos(rotY), sinY = Math.sin(rotY);
       const x2 = x * cosY + z * sinY;
@@ -325,7 +327,9 @@ function Graph3D({ activeSection, searchQuery, zoom, onZoomChange, onNodeClick }
       const y2 = y * cosX - z2 * sinX;
       const z3 = y * sinX + z2 * cosX;
       const fov = 600;
-      const scale = (fov / (fov + z3 + 200)) * zoom;
+      // perspT=0 → perspectiva completa; perspT=1 → ortográfica (sin efecto de profundidad)
+      const perspT = easeInOutCubic(perspProgress);
+      const scale = (fov / (fov + (z3 + 200) * (1 - perspT))) * zoom;
       return { px: canvas.width / 2 + x2 * scale, py: canvas.height / 2 + y2 * scale, scale, z: z3 };
     };
 
@@ -341,6 +345,12 @@ function Graph3D({ activeSection, searchQuery, zoom, onZoomChange, onNodeClick }
       if (s.animProgress < ANIM_TOTAL) {
         s.animProgress = Math.min(ANIM_TOTAL, s.animProgress + ANIM_SPEED);
         if (s.animProgress >= ANIM_TOTAL) s.autoRot = true;
+      }
+
+      // Transición perspectiva → ortográfica: espera ~1s tras la expansión, luego ~2s de transición
+      if (s.autoRot && s.perspProgress < 1) {
+        s.perspDelay++;
+        if (s.perspDelay > 60) s.perspProgress = Math.min(1, s.perspProgress + 0.008);
       }
 
       // Rotación automática suave (solo tras completar expansión)
