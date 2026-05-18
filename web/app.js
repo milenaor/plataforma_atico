@@ -244,7 +244,7 @@ function IntroAnimation({ onFinish }) {
 // ─── COMPONENT: 3D GRAPH ─────────────────────────────────────────────────────
 function Graph3D({ activeSection, searchQuery, zoom, onZoomChange, onNodeClick }) {
   const canvasRef = useRef(null);
-  const stateRef = useRef({ rotX: 0.3, rotY: 0.4, dragging: false, moved: false, lastX: 0, lastY: 0, autoRot: true, zoom: zoom || 1 });
+  const stateRef = useRef({ rotX: 0.3, rotY: 0.4, dragging: false, moved: false, lastX: 0, lastY: 0, autoRot: false, zoom: zoom || 1, animProgress: 0 });
   const animRef = useRef(null);
   const nodesRef = useRef([]);
   const edgesRef = useRef([]);
@@ -260,33 +260,34 @@ function Graph3D({ activeSection, searchQuery, zoom, onZoomChange, onNodeClick }
 
     // Proyectos: distribución Fibonacci esférica — garantiza máxima separación entre 20 nodos
     const goldenAngle = Math.PI * (3 - Math.sqrt(5));
+    // startT define en qué punto del progreso global arranca cada nodo (ola escalonada)
     sampleProyectos.forEach((p, i) => {
       const azimuth = i * goldenAngle;
       const t = sampleProyectos.length > 1 ? i / (sampleProyectos.length - 1) : 0.5;
       const elevation = (t - 0.5) * Math.PI * 0.62;
       const r = 175 + (i % 3) * 18;
-      nodes.push({ id: p.id, label: p.nombre.substring(0, 22) + "…", type: "proyecto", color: COLORS.proyecto, x: Math.cos(azimuth) * Math.cos(elevation) * r, y: Math.sin(elevation) * r, z: Math.sin(azimuth) * Math.cos(elevation) * r, data: p, size: 19 });
+      nodes.push({ id: p.id, label: p.nombre.substring(0, 22) + "…", type: "proyecto", color: COLORS.proyecto, x: Math.cos(azimuth) * Math.cos(elevation) * r, y: Math.sin(elevation) * r, z: Math.sin(azimuth) * Math.cos(elevation) * r, data: p, size: 19, startT: i * 0.006 });
     });
 
     // Espacios: hemisferio superior
     sampleEspacios.forEach((e, i) => {
       const angle = (i / sampleEspacios.length) * Math.PI * 2 + 0.4;
       const r = 245 + Math.random() * 50;
-      nodes.push({ id: e.id, label: e.nombre.substring(0, 20), type: "espacio", color: COLORS.espacio, x: Math.cos(angle) * r, y: 170 + Math.random() * 100, z: Math.sin(angle) * r, data: e, size: 9 });
+      nodes.push({ id: e.id, label: e.nombre.substring(0, 20), type: "espacio", color: COLORS.espacio, x: Math.cos(angle) * r, y: 170 + Math.random() * 100, z: Math.sin(angle) * r, data: e, size: 9, startT: 0.25 + i * 0.006 });
     });
 
     // Equipos: hemisferio inferior
     sampleEquipos.forEach((e, i) => {
       const angle = (i / sampleEquipos.length) * Math.PI * 2 + 0.9;
       const r = 245 + Math.random() * 50;
-      nodes.push({ id: e.id, label: e.nombre.substring(0, 18), type: "equipo", color: COLORS.equipo, x: Math.cos(angle) * r, y: -170 - Math.random() * 100, z: Math.sin(angle) * r, data: e, size: 9 });
+      nodes.push({ id: e.id, label: e.nombre.substring(0, 18), type: "equipo", color: COLORS.equipo, x: Math.cos(angle) * r, y: -170 - Math.random() * 100, z: Math.sin(angle) * r, data: e, size: 9, startT: 0.25 + i * 0.006 });
     });
 
     // Talento: anillo exterior ecuatorial
     sampleTalento.forEach((t, i) => {
       const angle = (i / sampleTalento.length) * Math.PI * 2 + 1.3;
       const r = 275 + Math.random() * 40;
-      nodes.push({ id: t.id, label: t.area, type: "talento", color: COLORS.talento, x: Math.cos(angle) * r, y: (Math.random() - 0.5) * 60, z: Math.sin(angle) * r, data: t, size: 9 });
+      nodes.push({ id: t.id, label: t.area, type: "talento", color: COLORS.talento, x: Math.cos(angle) * r, y: (Math.random() - 0.5) * 60, z: Math.sin(angle) * r, data: t, size: 9, startT: 0.15 + i * 0.006 });
     });
 
     const edges = [];
@@ -328,25 +329,51 @@ function Graph3D({ activeSection, searchQuery, zoom, onZoomChange, onNodeClick }
       return { px: canvas.width / 2 + x2 * scale, py: canvas.height / 2 + y2 * scale, scale, z: z3 };
     };
 
+    const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
+    const easeOutQuint = t => 1 - Math.pow(1 - t, 5);
+    const ANIM_TOTAL = 1.6; // unidades totales de progreso (incluye todos los startT + 1.0)
+    const ANIM_SPEED = 0.008; // incremento por frame (~3.3s a 60fps)
+
     const draw = () => {
-      if (!stateRef.current.dragging && stateRef.current.autoRot) {
-        stateRef.current.rotY += 0.003;
+      const s = stateRef.current;
+
+      // Avanzar animación de expansión
+      if (s.animProgress < ANIM_TOTAL) {
+        s.animProgress = Math.min(ANIM_TOTAL, s.animProgress + ANIM_SPEED);
+        if (s.animProgress >= ANIM_TOTAL) s.autoRot = true;
       }
+
+      // Rotación automática suave (solo tras completar expansión)
+      if (!s.dragging && s.autoRot) s.rotY += 0.003;
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       const q = searchQuery?.toLowerCase() || "";
-      const projected = nodesRef.current.map(n => ({ ...n, ...project(n.x, n.y, n.z) }));
+
+      // Proyectar cada nodo con su posición interpolada
+      const projected = nodesRef.current.map(n => {
+        const rawT = Math.max(0, Math.min(1, (s.animProgress - (n.startT || 0)) / 1.0));
+        const eased = easeOutQuint(rawT);
+        const fadeIn = Math.min(1, rawT * 6); // aparece rápido al inicio del nodo
+        return { ...n, ...project(n.x * eased, n.y * eased, n.z * eased), animEased: eased, fadeIn };
+      });
       projected.sort((a, b) => a.z - b.z);
       projectedRef.current = projected;
 
+      // Aristas: solo visibles cuando ambos extremos han empezado a moverse
       edgesRef.current.forEach(e => {
         const fn = projected.find(n => n.id === e.from);
         const tn = projected.find(n => n.id === e.to);
         if (!fn || !tn) return;
+        const edgeFade = Math.min(fn.fadeIn, tn.fadeIn) * Math.min(fn.animEased, tn.animEased);
+        if (edgeFade < 0.05) return;
         ctx.beginPath();
         ctx.moveTo(fn.px, fn.py);
         ctx.lineTo(tn.px, tn.py);
-        ctx.strokeStyle = e.color;
+        // Extraer color base y aplicar edgeFade
+        const baseColor = e.color.slice(0, 7);
+        const edgeOpacity = Math.round(edgeFade * 0.45 * 255).toString(16).padStart(2, "0");
+        ctx.strokeStyle = baseColor + edgeOpacity;
         ctx.lineWidth = 0.65;
         ctx.stroke();
       });
@@ -354,7 +381,8 @@ function Graph3D({ activeSection, searchQuery, zoom, onZoomChange, onNodeClick }
       projected.forEach(n => {
         const isActive = activeSection === "all" || activeSection === n.type + "s" || !activeSection;
         const isMatch = !q || n.label.toLowerCase().includes(q) || n.data?.descripcion?.toLowerCase().includes(q);
-        const alpha = (!isMatch && q) ? 0.12 : (isActive ? 1 : 0.25);
+        const baseAlpha = (!isMatch && q) ? 0.12 : (isActive ? 1 : 0.25);
+        const alpha = baseAlpha * n.fadeIn;
         const r = n.size * n.scale * (isMatch && q ? 1.6 : 1);
 
         const glowMult = n.type === "proyecto" ? 2.2 : 2.8;
@@ -371,7 +399,7 @@ function Graph3D({ activeSection, searchQuery, zoom, onZoomChange, onNodeClick }
         ctx.fillStyle = n.color + Math.round(alpha * 255).toString(16).padStart(2, "0");
         ctx.fill();
 
-        if (((n.type === "proyecto" && n.scale > 0.78) || n.scale > 0.95) && isActive) {
+        if (((n.type === "proyecto" && n.scale > 0.78) || n.scale > 0.95) && isActive && n.fadeIn > 0.5) {
           ctx.fillStyle = `rgba(255,255,255,${alpha * 0.85})`;
           const fontSize = n.type === "proyecto" ? Math.max(11, 13 * n.scale) : Math.max(8, 9 * n.scale);
           ctx.font = `${fontSize}px 'DM Mono', monospace`;
