@@ -851,7 +851,7 @@ function AticoPlatform() {
         <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
           {navItems.map(n => (
             <button key={n.key} onClick={() => setActiveSection(prev => prev === n.key ? null : n.key)}
-              style={{ padding: "7px 14px", borderRadius: 20, border: `1px solid ${activeSection === n.key ? n.color : n.color + "44"}`, background: activeSection === n.key ? n.color + "22" : "transparent", color: activeSection === n.key ? n.color : "#ffffff66", fontSize: 12, fontFamily: "'DM Mono', monospace", letterSpacing: "0.05em", cursor: "pointer", transition: "all 0.2s" }}>
+              style={{ padding: "7px 14px", borderRadius: 20, border: `1px solid ${activeSection === n.key ? n.color : n.color + "66"}`, background: activeSection === n.key ? n.color + "22" : "transparent", color: activeSection === n.key ? n.color : "#ffffffcc", fontSize: 12, fontFamily: "'DM Mono', monospace", letterSpacing: "0.05em", cursor: "pointer", transition: "all 0.2s" }}>
               {n.label}
             </button>
           ))}
@@ -865,7 +865,7 @@ function AticoPlatform() {
             {/* HERO SECTION */}
             <div style={{ padding: "20px 32px", background: "linear-gradient(180deg, rgba(0,255,148,0.05) 0%, transparent 100%)", borderBottom: "1px solid rgba(0,255,148,0.1)" }}>
               <div style={{ textAlign: "center", maxWidth: 700, margin: "0 auto" }}>
-                <div style={{ fontSize: "clamp(11px, 1.5vw, 14px)", fontFamily: "'DM Mono', monospace", color: "#ffffff44", letterSpacing: "0.3em", marginBottom: 12, textTransform: "uppercase" }}>
+                <div style={{ fontSize: "clamp(11px, 1.5vw, 14px)", fontFamily: "'DM Mono', monospace", color: "#ffffffaa", letterSpacing: "0.3em", marginBottom: 12, textTransform: "uppercase" }}>
                   Centro de Convergencia Creativa · Universidad Javeriana
                 </div>
                 <h1 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "clamp(24px, 4vw, 42px)", fontWeight: 800, letterSpacing: "-0.03em", color: "#fff", lineHeight: 1.1, marginBottom: 12 }}>
@@ -907,7 +907,7 @@ function AticoPlatform() {
                     );
                   })()}
                 </div>
-                <p style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, color: "#ffffff33", marginBottom: 0, letterSpacing: "0.04em", marginTop: 6 }}>
+                <p style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, color: "#ffffff99", marginBottom: 0, letterSpacing: "0.04em", marginTop: 6 }}>
                   Arrastra para rotar · Scroll para zoom · Usa botones + y − para controlar
                 </p>
               </div>
@@ -927,7 +927,7 @@ function AticoPlatform() {
               {/* LEGEND */}
               <div style={{ position: "absolute", bottom: 24, left: 32, display: "flex", gap: 16, alignItems: "center", background: "rgba(0,0,0,0.6)", backdropFilter: "blur(10px)", padding: "12px 20px", borderRadius: 12, border: "1px solid rgba(255,255,255,0.1)", zIndex: 20 }}>
                 {[["Posibles Proyectos", COLORS.proyecto], ["Espacios", COLORS.espacio], ["Equipos", COLORS.equipo], ["Talento Humano", COLORS.talento]].map(([l, c]) => (
-                  <div key={l} style={{ display: "flex", alignItems: "center", gap: 6, color: "#ffffff66", fontSize: 11, fontFamily: "'DM Mono', monospace", letterSpacing: "0.1em" }}>
+                  <div key={l} style={{ display: "flex", alignItems: "center", gap: 6, color: "#ffffffbb", fontSize: 11, fontFamily: "'DM Mono', monospace", letterSpacing: "0.1em" }}>
                     <div style={{ width: 7, height: 7, borderRadius: "50%", background: c }} />
                     {l.toUpperCase()}
                   </div>
