@@ -2,76 +2,119 @@ const { useState, useEffect, useRef, useCallback } = React;
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
 
-const equiposData = [
-  { id: "EQ_001", nombre: "Micrófonos AKG C414", subcategoria: "audio", descripcion: "Micrófonos de condensador duales y multipatrón versátil, ideal para voces e instrumentos." },
-  { id: "EQ_002", nombre: "Micrófono AKG C4500 B-BC", subcategoria: "audio", descripcion: "Condensador de gran diafragma con patrón polar cardioide para voces e instrumentos acústicos." },
-  { id: "EQ_003", nombre: "Micrófono AKG C451 B dual", subcategoria: "audio", descripcion: "Condensador de pequeño diafragma, ideal para platillos, guitarras acústicas o violines." },
-  { id: "EQ_004", nombre: "Cámara Sony F3", subcategoria: "video", descripcion: "Cámara de cine digital con sensor Super 35mm. Lentes 35-50-85mm de distancia focal fija." },
-  { id: "EQ_005", nombre: "Cámara Canon EOS I T7 Rebel", subcategoria: "video", descripcion: "DSLR básica con sensor APS-C para fotografía y video." },
-  { id: "EQ_006", nombre: "Cámara Sony F55", subcategoria: "video", descripcion: "Cámara 4K con sensor global shutter profesional para cine y broadcast." },
-  { id: "EQ_007", nombre: "Luces Arrisun 12 Plus Head", subcategoria: "iluminacion", descripcion: "Focos LED de 12W, luz intensa y compacta para estudios o exteriores." },
-  { id: "EQ_008", nombre: "Luces Kino Celeb 200", subcategoria: "iluminacion", descripcion: "Paneles LED bicolores (3200K-5600K) con difusión cinematográfica para sets profesionales." },
-  { id: "EQ_009", nombre: "Luces ARRI Kit 150w-300w-650w", subcategoria: "iluminacion", descripcion: "Kits de luces fresnels para cubrir todas las necesidades de iluminación básica." },
-  { id: "EQ_010", nombre: "Teclado Kronos 88 teclas", subcategoria: "instrumentos", descripcion: "Teclado musical profesional con acción martillada y motor de síntesis múltiple." },
-  { id: "EQ_011", nombre: "Batería Gretsch Energy", subcategoria: "instrumentos", descripcion: "Batería acústica con hardware completo para creaciones musicales." },
-  { id: "EQ_012", nombre: "Grabadora Zoom H6", subcategoria: "audio", descripcion: "Grabadora portátil de 6 entradas XLR con preamps de bajo ruido." },
-  { id: "EQ_013", nombre: "Trípode Sachtler FSB 8", subcategoria: "soporte", descripcion: "Trípode con cabeza fluida profesional para cámaras medianas." },
-  { id: "EQ_014", nombre: "SteadiCam Ultra", subcategoria: "soporte", descripcion: "Estabilizador profesional para tomas fluidas con cámaras medianas o grandes." },
-  { id: "EQ_015", nombre: "Gafas Oculus Quest 2", subcategoria: "vr", descripcion: "Visores VR standalone con pantalla 4K para gaming y experiencias inmersivas." },
-  { id: "EQ_016", nombre: "Cámara 360 Insta One", subcategoria: "vr", descripcion: "Cámara para grabar contenido 360° con estabilización FlowState, ideal para VR." },
-  { id: "EQ_017", nombre: "Cámara Sony FX9", subcategoria: "video", descripcion: "Cámara de cine 6K Full-Frame con autofocus para cine y documentales." },
-  { id: "EQ_018", nombre: "Cámara Canon EOS R6", subcategoria: "video", descripcion: "Mirrorless Full-Frame con 4K, IBIS y AF Dual Pixel CMOS II." },
-  { id: "EQ_019", nombre: "Luces GVM 800D RGB", subcategoria: "iluminacion", descripcion: "Paneles LED RGB bicolor con control remoto para efectos creativos." },
-  { id: "EQ_020", nombre: "Mesa Sound Devices MixPre 10", subcategoria: "audio", descripcion: "Grabador/mezclador de 10 canales con preamps de bajo ruido." },
-];
+const equiposData = (() => {
+  const raw = window.equiposRaw || [];
+  return raw.map((item, i) => {
+    const id = `EQ_${String(i + 1).padStart(3, '0')}`;
+    const n = (item.Nombre || '').toLowerCase();
+    let subcategoria = 'general';
+    if (/microfono|grabadora|mesa de mezclas/.test(n)) subcategoria = 'audio';
+    else if (/camara/.test(n)) subcategoria = 'video';
+    else if (/luce/.test(n)) subcategoria = 'iluminacion';
+    else if (/teclado|bateria/.test(n)) subcategoria = 'instrumentos';
+    else if (/tripode|steadicam/.test(n)) subcategoria = 'soporte';
+    else if (/oculus|360|gafas/.test(n)) subcategoria = 'vr';
+    return {
+      id,
+      nombre: item.Nombre,
+      descripcion: item.Descripción,
+      subcategoria,
+      tags: item.Eqtiquetas ? item.Eqtiquetas.split(',').map(t => t.trim()) : [],
+    };
+  });
+})();
 
-const espaciosData = [
-  { id: "ESP_001", nombre: "Centro Ático", subcategoria: "principal", descripcion: "Edificio de 7 niveles con 8000 m² que aloja laboratorios de cine, TV, video, radio, videojuegos, animación, arquitectura, música, sonido, diseño y creación digital." },
-  { id: "ESP_002", nombre: "Lab. Diseño Digital y Arte Electrónico", subcategoria: "diseño", descripcion: "9 salas con workstations NVIDIA Quadro. Adobe Creative Cloud, Rhinoceros, SketchUp Pro y DaVinci Resolve." },
-  { id: "ESP_003", nombre: "Lab. de Capacitación", subcategoria: "capacitacion", descripcion: "Espacios para capacitación en software especializado y proyectos de edición." },
-  { id: "ESP_004", nombre: "Lab. Foley", subcategoria: "audio", descripcion: "Especializado en captura de foleys, diseño sonoro y sonido para cine con aislamiento acústico y monitoreo surround." },
-  { id: "ESP_005", nombre: "Lab. Film Mixing", subcategoria: "audio", descripcion: "Estudio de mezcla con sistema surround MEYER SOUND 5.1, 3 Pro Tools Ultimate HD, AVID DCONTROL con 64 faders." },
-  { id: "ESP_006", nombre: "Labs. de Edición de Audio", subcategoria: "audio", descripcion: "Salas individuales con AVID, Pro Tools, Logic Pro X, Ableton y Pure Data." },
-  { id: "ESP_007", nombre: "Lab. 421 — Radio", subcategoria: "radio", descripcion: "Laboratorio de radio con consola Sonifex S2, 6 micrófonos ElectroVoice RE27 y cámara Logitech Brio 4K." },
-  { id: "ESP_008", nombre: "Lab. 317 — Audio Multiusuario", subcategoria: "audio", descripcion: "Sistema Genelec 5.1, interfaz AUDIENT EVO 16, 6 micrófonos RE27. Optimizado para radio, voces y mezcla surround." },
-  { id: "ESP_009", nombre: "Labs. 419 y 426", subcategoria: "audio", descripcion: "15 computadores con live room para ingeniería de sonido y música." },
-  { id: "ESP_010", nombre: "Labs. D1 y D2", subcategoria: "audio", descripcion: "Live room para máximo 3 personas. Especializados en grabación de voces e instrumentos." },
-  { id: "ESP_011", nombre: "Estudio A", subcategoria: "estudio", descripcion: "Estudio de grabación profesional con 48 canales, D-Command, 6 clósets. Capacidad para 35 músicos." },
-  { id: "ESP_012", nombre: "Estudio B", subcategoria: "estudio", descripcion: "Consola SSL Duality y 3 cabinas de grabación. Live room para múltiples músicos." },
-  { id: "ESP_013", nombre: "Estudio de TV con Croma", subcategoria: "television", descripcion: "134 m² con Croma Key, ciclorama blanco, parrilla caminable y 3 cámaras Sony HD + 1 robótica." },
-  { id: "ESP_014", nombre: "Estudio de TV", subcategoria: "television", descripcion: "185 m² para magazines y dramatizados. 4 cámaras Sony HD + 1 robótica integradas a control master." },
-  { id: "ESP_015", nombre: "Lab. Hipermedial", subcategoria: "television", descripcion: "18 computadores con Adobe Premiere y software Inception para automatización de noticias." },
-  { id: "ESP_016", nombre: "Sala de Corrección de Color", subcategoria: "postproduccion", descripcion: "Monitor 4K, panel de control de color. Procesos en HD, 2K, 4K y HDR." },
-  { id: "ESP_017", nombre: "Lab. Mocap", subcategoria: "tecnologia", descripcion: "Motion Capture Vicon con 8 cámaras, electromiografía y placas de fuerza. Software Shogun Post y Live." },
-  { id: "ESP_018", nombre: "Lab. de Digitalización", subcategoria: "archivo", descripcion: "Digitalización de archivos electromagnéticos en formatos Betacam, VHS, cassettes y otros formatos analógicos." },
-];
+const espaciosData = (() => {
+  const raw = window.espaciosRaw || [];
+  return raw.map((item, i) => {
+    const id = `ESP_${String(i + 1).padStart(3, '0')}`;
+    const n = (item.Nombre || '').toLowerCase();
+    let subcategoria = 'general';
+    if (/diseño|arte electr/.test(n)) subcategoria = 'diseño';
+    else if (/capacitaci/.test(n)) subcategoria = 'capacitacion';
+    else if (/foley|film mixing|edici.n de audio|419|d1|317/.test(n)) subcategoria = 'audio';
+    else if (/radio|421/.test(n)) subcategoria = 'radio';
+    else if (/estudio a$|estudio b$/.test(n)) subcategoria = 'estudio';
+    else if (/tv|hipermedial/.test(n)) subcategoria = 'television';
+    else if (/correcci.n|color/.test(n)) subcategoria = 'postproduccion';
+    else if (/mocap/.test(n)) subcategoria = 'tecnologia';
+    else if (/digitalizaci/.test(n)) subcategoria = 'archivo';
+    return {
+      id,
+      nombre: item.Nombre,
+      descripcion: item.Descripción,
+      subcategoria,
+      info: item.Info,
+      info2: item['Info 2'],
+      tags: item.Etiqueta ? item.Etiqueta.split(',').map(t => t.trim()) : [],
+    };
+  });
+})();
 
-const proyectosData = [
-  { id: "PROY_001", nombre: "Laboratorios de Creación Digital con Regiones", categoria: "produccion", subcategoria: "formacion", descripcion: "Talleres itinerantes de creación audiovisual y digital dirigidos a comunidades y estudiantes fuera del campus.", tags: ["audiovisual", "comunidades", "formación", "cultura"], espacios: ["ESP_013", "ESP_003", "ESP_011"], equipos: ["EQ_017", "EQ_018", "EQ_008", "EQ_012", "EQ_013"] },
-  { id: "PROY_002", nombre: "Convocatoria de Digitalización y Archivo", categoria: "archivo", subcategoria: "digitalizacion", descripcion: "Preservación y digitalización de material analógico para construir un repositorio de memoria audiovisual.", tags: ["archivo", "digitalización", "memoria", "patrimonio"], espacios: ["ESP_018", "ESP_016", "ESP_010"], equipos: ["EQ_004", "EQ_012", "EQ_020"] },
-  { id: "PROY_003", nombre: "Fábrica de Cortos — Ficción Propia", categoria: "produccion", subcategoria: "ficcion", descripcion: "Producción de cortometrajes de ficción propios para participación en festivales nacionales e internacionales.", tags: ["cine", "ficción", "festivales", "cortometraje"], espacios: ["ESP_013", "ESP_014", "ESP_016", "ESP_005"], equipos: ["EQ_006", "EQ_017", "EQ_009", "EQ_007", "EQ_014", "EQ_013"] },
-  { id: "PROY_004", nombre: "Experiencias Inmersivas y Videomapping", categoria: "desarrollo", subcategoria: "inmersivo", descripcion: "Instalaciones de videomapping y realidad extendida para museos, festivales y espacios culturales.", tags: ["inmersivo", "VR", "videomapping", "arte", "tecnología"], espacios: ["ESP_001", "ESP_013"], equipos: ["EQ_015", "EQ_016", "EQ_019"] },
-  { id: "PROY_005", nombre: "Live Sessions — Grabación Musical de Gran Formato", categoria: "produccion", subcategoria: "musica", descripcion: "Sesiones de grabación en vivo para artistas emergentes con producción audiovisual completa.", tags: ["música", "grabación", "live", "artistas"], espacios: ["ESP_011", "ESP_012", "ESP_016"], equipos: ["EQ_001", "EQ_002", "EQ_010", "EQ_011", "EQ_018"] },
-  { id: "PROY_006", nombre: "Virtualización Inteligente de Programas Académicos", categoria: "ambientes_virtuales", subcategoria: "virtualizacion", descripcion: "Diseño de cursos virtuales con recursos audiovisuales y experiencias interactivas para la Javeriana.", tags: ["educación", "virtual", "IA", "contenidos"], espacios: ["ESP_013", "ESP_015", "ESP_003"], equipos: ["EQ_018", "EQ_008", "EQ_020"] },
-  { id: "PROY_007", nombre: "Laboratorio de IA Aplicada a Medios y Producción", categoria: "desarrollo", subcategoria: "inteligencia_artificial", descripcion: "Investigación y producción de contenidos con herramientas de inteligencia artificial generativa.", tags: ["IA", "innovación", "medios", "tecnología"], espacios: ["ESP_002", "ESP_003"], equipos: ["EQ_017", "EQ_020"] },
-  { id: "PROY_008", nombre: "Desde Ático — Contenidos Documentales y Divulgativos", categoria: "contenidos", subcategoria: "documental", descripcion: "Serie de documentales y contenidos divulgativos sobre temas universitarios y culturales.", tags: ["documental", "contenidos", "divulgación", "universidad"], espacios: ["ESP_013", "ESP_016", "ESP_005"], equipos: ["EQ_017", "EQ_006", "EQ_008", "EQ_012"] },
-  { id: "PROY_009", nombre: "Producción de Animación y Motion Capture", categoria: "desarrollo", subcategoria: "animacion", descripcion: "Proyectos de animación 3D y captura de movimiento para videojuegos, cine y arte digital.", tags: ["animación", "mocap", "3D", "videojuegos"], espacios: ["ESP_017", "ESP_002"], equipos: ["EQ_015", "EQ_016"] },
-  { id: "PROY_010", nombre: "Ecosistema de Radio y Podcast del Centro Ático", categoria: "contenidos", subcategoria: "radio", descripcion: "Producción de programas de radio y podcasts especializados con distribución en plataformas digitales.", tags: ["radio", "podcast", "audio", "digital"], espacios: ["ESP_007", "ESP_008"], equipos: ["EQ_001", "EQ_002", "EQ_020"] },
-  { id: "PROY_011", nombre: "Transmisión Multicámara de Eventos Institucionales", categoria: "produccion", subcategoria: "transmision", descripcion: "Cobertura en vivo de eventos académicos y culturales con producción multicámara profesional.", tags: ["transmisión", "live", "eventos", "multicámara"], espacios: ["ESP_014", "ESP_015"], equipos: ["EQ_018", "EQ_006", "EQ_019", "EQ_013"] },
-  { id: "PROY_012", nombre: "Especiales Web y Plataformas Digitales Propias", categoria: "desarrollo", subcategoria: "web", descripcion: "Desarrollo de plataformas digitales, webdocs y experiencias interactivas para comunicación institucional.", tags: ["web", "digital", "plataforma", "interactivo"], espacios: ["ESP_002", "ESP_003"], equipos: ["EQ_018", "EQ_016"] },
-  { id: "PROY_013", nombre: "Plan de Formación Docente en Tecnología y Producción", categoria: "formacion", subcategoria: "docente", descripcion: "Capacitaciones técnicas y creativas para docentes en herramientas de producción y medios digitales.", tags: ["formación", "docente", "tecnología", "capacitación"], espacios: ["ESP_003", "ESP_015"], equipos: ["EQ_018", "EQ_020"] },
-  { id: "PROY_014", nombre: "Observatorio de Datos y Cultura Digital Universitaria", categoria: "inteligencia_negocio", subcategoria: "datos", descripcion: "Análisis de datos y tendencias sobre consumo cultural y digital en la comunidad universitaria.", tags: ["datos", "cultura", "observatorio", "análisis"], espacios: ["ESP_002", "ESP_015"], equipos: ["EQ_018"] },
-  { id: "PROY_015", nombre: "Producción Sonora para Cine — Foley y Diseño de Sonido", categoria: "produccion", subcategoria: "sonido", descripcion: "Diseño sonoro profesional y grabación de foleys para producciones cinematográficas propias y externas.", tags: ["sonido", "foley", "cine", "diseño sonido"], espacios: ["ESP_004", "ESP_005"], equipos: ["EQ_001", "EQ_002", "EQ_003", "EQ_020"] },
-  { id: "PROY_016", nombre: "Semillero de Fotografía para Cine", categoria: "formacion", subcategoria: "fotografia", descripcion: "Programa formativo en fotografía cinematográfica para estudiantes y realizadores emergentes.", tags: ["fotografía", "cine", "formación", "cámara"], espacios: ["ESP_013", "ESP_016"], equipos: ["EQ_004", "EQ_006", "EQ_009", "EQ_013"] },
-  { id: "PROY_017", nombre: "Sistema de Identidad Visual para Proyectos Ático", categoria: "contenidos", subcategoria: "diseno_grafico", descripcion: "Diseño de sistemas de identidad visual, branding y materiales gráficos para proyectos del Centro.", tags: ["diseño", "branding", "identidad", "gráfico"], espacios: ["ESP_002"], equipos: ["EQ_019"] },
-  { id: "PROY_018", nombre: "Motion Graphics y Animación para Contenidos Educativos", categoria: "produccion", subcategoria: "animacion_2d", descripcion: "Producción de motion graphics y animación 2D para contenidos educativos y de divulgación.", tags: ["motion", "animación", "educación", "gráfico"], espacios: ["ESP_002", "ESP_003"], equipos: ["EQ_018", "EQ_019"] },
-  { id: "PROY_019", nombre: "Convocatoria de Producción Musical Universitaria", categoria: "produccion", subcategoria: "musica", descripcion: "Convocatoria abierta para producir y grabar proyectos musicales de artistas de la comunidad universitaria.", tags: ["música", "convocatoria", "producción", "artistas"], espacios: ["ESP_011", "ESP_012"], equipos: ["EQ_010", "EQ_011", "EQ_001", "EQ_002"] },
-  { id: "PROY_020", nombre: "Producción de Videoclips y Contenido Musical Visual", categoria: "produccion", subcategoria: "videoclip", descripcion: "Producción de videoclips y contenido audiovisual para artistas y sellos discográficos.", tags: ["videoclip", "música", "visual", "artistas"], espacios: ["ESP_013", "ESP_014", "ESP_016"], equipos: ["EQ_017", "EQ_018", "EQ_008", "EQ_014"] },
+const proyectosData = (() => {
+  const raw = window.proyectosRaw || [];
+  const byNombre = (list, name) => list.find(e => e.nombre === name || e.nombre.toLowerCase() === name.toLowerCase());
+  return raw.map(item => {
+    const categorias = Array.isArray(item.categoria) ? item.categoria : [item.categoria];
+    return {
+      id: `PROY_${String(item.id).padStart(3, '0')}`,
+      nombre: item.titulo,
+      titulo: item.titulo,
+      subtitulo: item.subtitulo,
+      categoria: categorias[0] || 'digital',
+      categorias,
+      audiencia: item.audiencia,
+      descripcion: item.descripcion,
+      tags: item.etiquetas || [],
+      talento: item.talento || [],
+      espacios: (item.espacios || []).map(n => { const e = byNombre(espaciosData, n); return e ? e.id : null; }).filter(Boolean),
+      equipos: (item.equipos || []).map(n => { const e = byNombre(equiposData, n); return e ? e.id : null; }).filter(Boolean),
+    };
+  });
+})();
+
+const _PROYECTOS_LEGACY = [
+  { id: "PROY_001", nombre: "Laboratorios de Creación Digital con Regiones", categoria: "produccion", subcategoria: "formacion", descripcion: "Talleres itinerantes de creación audiovisual y digital dirigidos a comunidades y estudiantes fuera del campus.", tags: ["audiovisual", "comunidades", "formación", "cultura"], espacios: ["ESP_012", "ESP_002", "ESP_010"], equipos: ["EQ_017", "EQ_018", "EQ_008", "EQ_012", "EQ_013"] },
+  { id: "PROY_002", nombre: "Convocatoria de Digitalización y Archivo", categoria: "archivo", subcategoria: "digitalizacion", descripcion: "Preservación y digitalización de material analógico para construir un repositorio de memoria audiovisual.", tags: ["archivo", "digitalización", "memoria", "patrimonio"], espacios: ["ESP_017", "ESP_015", "ESP_009"], equipos: ["EQ_004", "EQ_012", "EQ_020"] },
+  { id: "PROY_003", nombre: "Fábrica de Cortos — Ficción Propia", categoria: "produccion", subcategoria: "ficcion", descripcion: "Producción de cortometrajes de ficción propios para participación en festivales nacionales e internacionales.", tags: ["cine", "ficción", "festivales", "cortometraje"], espacios: ["ESP_012", "ESP_013", "ESP_015", "ESP_004"], equipos: ["EQ_006", "EQ_017", "EQ_009", "EQ_007", "EQ_014", "EQ_013"] },
+  { id: "PROY_004", nombre: "Experiencias Inmersivas y Videomapping", categoria: "desarrollo", subcategoria: "inmersivo", descripcion: "Instalaciones de videomapping y realidad extendida para museos, festivales y espacios culturales.", tags: ["inmersivo", "VR", "videomapping", "arte", "tecnología"], espacios: ["ESP_012"], equipos: ["EQ_015", "EQ_016", "EQ_019"] },
+  { id: "PROY_005", nombre: "Live Sessions — Grabación Musical de Gran Formato", categoria: "produccion", subcategoria: "musica", descripcion: "Sesiones de grabación en vivo para artistas emergentes con producción audiovisual completa.", tags: ["música", "grabación", "live", "artistas"], espacios: ["ESP_010", "ESP_011", "ESP_015"], equipos: ["EQ_001", "EQ_002", "EQ_010", "EQ_011", "EQ_018"] },
+  { id: "PROY_006", nombre: "Virtualización Inteligente de Programas Académicos", categoria: "ambientes_virtuales", subcategoria: "virtualizacion", descripcion: "Diseño de cursos virtuales con recursos audiovisuales y experiencias interactivas para la Javeriana.", tags: ["educación", "virtual", "IA", "contenidos"], espacios: ["ESP_012", "ESP_014", "ESP_002"], equipos: ["EQ_018", "EQ_008", "EQ_020"] },
+  { id: "PROY_007", nombre: "Laboratorio de IA Aplicada a Medios y Producción", categoria: "desarrollo", subcategoria: "inteligencia_artificial", descripcion: "Investigación y producción de contenidos con herramientas de inteligencia artificial generativa.", tags: ["IA", "innovación", "medios", "tecnología"], espacios: ["ESP_001", "ESP_002"], equipos: ["EQ_017", "EQ_020"] },
+  { id: "PROY_008", nombre: "Desde Ático — Contenidos Documentales y Divulgativos", categoria: "contenidos", subcategoria: "documental", descripcion: "Serie de documentales y contenidos divulgativos sobre temas universitarios y culturales.", tags: ["documental", "contenidos", "divulgación", "universidad"], espacios: ["ESP_012", "ESP_015", "ESP_004"], equipos: ["EQ_017", "EQ_006", "EQ_008", "EQ_012"] },
+  { id: "PROY_009", nombre: "Producción de Animación y Motion Capture", categoria: "desarrollo", subcategoria: "animacion", descripcion: "Proyectos de animación 3D y captura de movimiento para videojuegos, cine y arte digital.", tags: ["animación", "mocap", "3D", "videojuegos"], espacios: ["ESP_016", "ESP_001"], equipos: ["EQ_015", "EQ_016"] },
+  { id: "PROY_010", nombre: "Ecosistema de Radio y Podcast del Centro Ático", categoria: "contenidos", subcategoria: "radio", descripcion: "Producción de programas de radio y podcasts especializados con distribución en plataformas digitales.", tags: ["radio", "podcast", "audio", "digital"], espacios: ["ESP_006", "ESP_007"], equipos: ["EQ_001", "EQ_002", "EQ_020"] },
+  { id: "PROY_011", nombre: "Transmisión Multicámara de Eventos Institucionales", categoria: "produccion", subcategoria: "transmision", descripcion: "Cobertura en vivo de eventos académicos y culturales con producción multicámara profesional.", tags: ["transmisión", "live", "eventos", "multicámara"], espacios: ["ESP_013", "ESP_014"], equipos: ["EQ_018", "EQ_006", "EQ_019", "EQ_013"] },
+  { id: "PROY_012", nombre: "Especiales Web y Plataformas Digitales Propias", categoria: "desarrollo", subcategoria: "web", descripcion: "Desarrollo de plataformas digitales, webdocs y experiencias interactivas para comunicación institucional.", tags: ["web", "digital", "plataforma", "interactivo"], espacios: ["ESP_001", "ESP_002"], equipos: ["EQ_018", "EQ_016"] },
+  { id: "PROY_013", nombre: "Plan de Formación Docente en Tecnología y Producción", categoria: "formacion", subcategoria: "docente", descripcion: "Capacitaciones técnicas y creativas para docentes en herramientas de producción y medios digitales.", tags: ["formación", "docente", "tecnología", "capacitación"], espacios: ["ESP_002", "ESP_014"], equipos: ["EQ_018", "EQ_020"] },
+  { id: "PROY_014", nombre: "Observatorio de Datos y Cultura Digital Universitaria", categoria: "inteligencia_negocio", subcategoria: "datos", descripcion: "Análisis de datos y tendencias sobre consumo cultural y digital en la comunidad universitaria.", tags: ["datos", "cultura", "observatorio", "análisis"], espacios: ["ESP_001", "ESP_014"], equipos: ["EQ_018"] },
+  { id: "PROY_015", nombre: "Producción Sonora para Cine — Foley y Diseño de Sonido", categoria: "produccion", subcategoria: "sonido", descripcion: "Diseño sonoro profesional y grabación de foleys para producciones cinematográficas propias y externas.", tags: ["sonido", "foley", "cine", "diseño sonido"], espacios: ["ESP_003", "ESP_004"], equipos: ["EQ_001", "EQ_002", "EQ_003", "EQ_020"] },
+  { id: "PROY_016", nombre: "Semillero de Fotografía para Cine", categoria: "formacion", subcategoria: "fotografia", descripcion: "Programa formativo en fotografía cinematográfica para estudiantes y realizadores emergentes.", tags: ["fotografía", "cine", "formación", "cámara"], espacios: ["ESP_012", "ESP_015"], equipos: ["EQ_004", "EQ_006", "EQ_009", "EQ_013"] },
+  { id: "PROY_017", nombre: "Sistema de Identidad Visual para Proyectos Ático", categoria: "contenidos", subcategoria: "diseno_grafico", descripcion: "Diseño de sistemas de identidad visual, branding y materiales gráficos para proyectos del Centro.", tags: ["diseño", "branding", "identidad", "gráfico"], espacios: ["ESP_001"], equipos: ["EQ_019"] },
+  { id: "PROY_018", nombre: "Motion Graphics y Animación para Contenidos Educativos", categoria: "produccion", subcategoria: "animacion_2d", descripcion: "Producción de motion graphics y animación 2D para contenidos educativos y de divulgación.", tags: ["motion", "animación", "educación", "gráfico"], espacios: ["ESP_001", "ESP_002"], equipos: ["EQ_018", "EQ_019"] },
+  { id: "PROY_019", nombre: "Convocatoria de Producción Musical Universitaria", categoria: "produccion", subcategoria: "musica", descripcion: "Convocatoria abierta para producir y grabar proyectos musicales de artistas de la comunidad universitaria.", tags: ["música", "convocatoria", "producción", "artistas"], espacios: ["ESP_010", "ESP_011"], equipos: ["EQ_010", "EQ_011", "EQ_001", "EQ_002"] },
+  { id: "PROY_020", nombre: "Producción de Videoclips y Contenido Musical Visual", categoria: "produccion", subcategoria: "videoclip", descripcion: "Producción de videoclips y contenido audiovisual para artistas y sellos discográficos.", tags: ["videoclip", "música", "visual", "artistas"], espacios: ["ESP_012", "ESP_013", "ESP_015"], equipos: ["EQ_017", "EQ_018", "EQ_008", "EQ_014"] },
 ];
 
 const talentoSample = (window.talentoData || []).map(item => ({
-  id: item.id_atico || item.id || item.numero,
   ...item,
+  id: item.ID_ATICO || item.id_atico || String(item.ID || item.numero || ''),
+  id_atico: item.ID_ATICO || item.id_atico,
+  numero: item.ID || item.numero,
+  area: (item.Área || item.area || '').trim(),
+  rol_principal: item['Nombre del Rol'] || item.rol_principal,
+  descripcion: item['Descripción del rol'] || item.descripcion,
+  tags: item['Etiquetas del rol']
+    ? item['Etiquetas del rol'].split(',').map(t => t.trim())
+    : (Array.isArray(item.tags) ? item.tags : []),
+  proyectos_positivos: item['Referente de proyectos'] || item.proyectos_positivos,
+  equipos_utilizados: item['Herramientas/Equipos'] || item.equipos_utilizados,
+  software_tecnologias: item['Software/Ttecnologías'] || item['Software/Tecnologías'] || item.software_tecnologias,
+  espacios_trabajo: item.Espacios || item.espacios_trabajo,
+  proyectos_preferidos: item['Interés en proyecto de tipo'] || item.proyectos_preferidos,
+  areas_explorar: item['Interés en explorar las siguientes áreas'] || item.areas_explorar,
+  otras_habilidades: ('Habilidades adicionales' in item ? item['Habilidades adicionales'] : item.otras_habilidades),
+  proyectos_mayor_aporte: item['Proyectos en los que le gustaría participar'] || item.proyectos_mayor_aporte,
 }));
 
 // ─── COLOR MAP ────────────────────────────────────────────────────────────────
@@ -89,27 +132,33 @@ const COLORS = {
 };
 
 const CAT_COLORS = {
-  produccion: "#00FF94",
-  archivo: "#FF6B35",
-  desarrollo: "#00C2FF",
-  contenidos: "#FF3CAC",
-  formacion: "#FCD34D",
-  ambientes_virtuales: "#A78BFA",
-  inteligencia_negocio: "#34D399",
+  cine: "#00FF94",
+  musica: "#A78BFA",
+  audio: "#60A5FA",
+  digital: "#00C2FF",
+  educacion: "#FCD34D",
+  inmersivo: "#FF3CAC",
+  patrimonio: "#FF6B35",
+  arte: "#34D399",
+  periodismo: "#F87171",
 };
 
 const TALENTO_BY_CATEGORY = {
-  produccion: ["ID_ATICO_PRO_001", "ID_ATICO_PRO_002", "ID_ATICO_PRO_003"],
-  archivo: ["ID_ATICO_PRO_002", "ID_ATICO_PRO_003", "ID_ATICO_OP_001"],
-  desarrollo: ["ID_ATICO_AMV_001", "ID_ATICO_PRO_001", "ID_ATICO_PRO_003"],
-  contenidos: ["ID_ATICO_PRO_001", "ID_ATICO_PRO_002", "ID_ATICO_AMV_001"],
-  formacion: ["ID_ATICO_OP_003", "ID_ATICO_OP_004", "ID_ATICO_AMV_001"],
-  ambientes_virtuales: ["ID_ATICO_AMV_001", "ID_ATICO_PRO_001", "ID_ATICO_OP_004"],
-  inteligencia_negocio: ["ID_ATICO_AMV_001", "ID_ATICO_PRO_001", "ID_ATICO_OP_001"],
+  produccion: ["ID_ATICO_PRO_001", "ID_ATICO_PRO_003", "ID_ATICO_PRO_005"],
+  archivo: ["ID_ATICO_PRO_002", "ID_ATICO_PRO_008", "ID_ATICO_OP_001"],
+  desarrollo: ["ID_ATICO_AMV_001", "ID_ATICO_PRO_007", "ID_ATICO_OP_005"],
+  contenidos: ["ID_ATICO_CONT_001", "ID_ATICO_CONT_004", "ID_ATICO_AMV_001"],
+  formacion: ["ID_ATICO_OP_003", "ID_ATICO_OP_004", "ID_ATICO_AMV_002"],
+  ambientes_virtuales: ["ID_ATICO_AMV_001", "ID_ATICO_AMV_003", "ID_ATICO_AMV_004"],
+  inteligencia_negocio: ["ID_ATICO_AMV_001", "ID_ATICO_ADM_001", "ID_ATICO_OP_005"],
 };
 
 function resolveProjectTalent(item) {
-  const ids = item.talento || TALENTO_BY_CATEGORY[item.categoria] || [];
+  const talento = item.talento || [];
+  if (talento.length > 0 && typeof talento[0] === 'string' && !talento[0].startsWith('ID_ATICO')) {
+    return talento.map(name => talentoSample.find(t => t.rol_principal === name)).filter(Boolean).slice(0, 4);
+  }
+  const ids = talento.length > 0 ? talento : (TALENTO_BY_CATEGORY[item.categoria] || []);
   return ids.map(id => talentoSample.find(t => t.id === id)).filter(Boolean);
 }
 
@@ -511,37 +560,36 @@ function DetailPanel({ item, type, onClose }) {
     <div style={{ position: "fixed", right: 0, top: 0, bottom: 0, width: "min(420px, 100vw)", background: "rgba(0,0,0,0.95)", backdropFilter: "blur(20px)", borderLeft: `1px solid ${color}33`, zIndex: 50, overflowY: "auto", padding: 32 }}>
       <button onClick={onClose} style={{ position: "absolute", top: 20, right: 20, background: "none", border: "none", color: "#fff6", fontSize: 24, cursor: "pointer" }}>✕</button>
       <div style={{ width: 40, height: 3, background: color, marginBottom: 24, borderRadius: 2 }} />
-      <div style={{ fontSize: 11, fontFamily: "'DM Mono', monospace", color: color, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 12 }}>{type}</div>
-      <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 22, fontWeight: 700, color: "#fff", lineHeight: 1.3, marginBottom: 16 }}>{item.nombre || item.perfil || item.area}</h2>
+      <div style={{ fontSize: 11, fontFamily: "'DM Mono', monospace", color: color, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 12 }}>{type === "proyecto" ? "Posible proyecto" : type}</div>
+      <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 22, fontWeight: 700, color: "#fff", lineHeight: 1.3, marginBottom: 16 }}>{type === "talento" ? (item.rol_principal || item.area) : (item.nombre || item.perfil || item.area)}</h2>
+      {type === "proyecto" && item.subtitulo && <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 12, color: color + "cc", letterSpacing: "0.1em", marginBottom: 16 }}>{item.subtitulo}</div>}
       {item.descripcion && <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "#ffffff99", lineHeight: 1.7, marginBottom: 24 }}>{item.descripcion}</p>}
-      {item.tags && (
+      {type === "proyecto" && item.audiencia && (
+        <div style={{ marginBottom: 20, padding: "12px 16px", background: color + "0f", borderRadius: 10, border: `1px solid ${color}22` }}>
+          <div style={{ fontSize: 10, color: "#ffffff55", fontFamily: "'DM Mono', monospace", textTransform: "uppercase", letterSpacing: "0.18em", marginBottom: 6 }}>Audiencia</div>
+          <div style={{ fontSize: 13, color: "#ffffffcc", lineHeight: 1.6 }}>{item.audiencia}</div>
+        </div>
+      )}
+      {item.tags && item.tags.length > 0 && (
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 24 }}>
           {item.tags.map(t => <span key={t} style={{ padding: "4px 12px", borderRadius: 20, border: `1px solid ${color}55`, color: color, fontSize: 11, fontFamily: "'DM Mono', monospace" }}>{t}</span>)}
         </div>
       )}
-      {item.subcategoria && <div style={{ color: "#ffffff44", fontSize: 12, fontFamily: "'DM Mono', monospace", marginBottom: 24 }}>CATEGORÍA: {item.subcategoria.toUpperCase()}</div>}
+      {type !== "proyecto" && item.subcategoria && <div style={{ color: "#ffffff44", fontSize: 12, fontFamily: "'DM Mono', monospace", marginBottom: 24 }}>CATEGORÍA: {item.subcategoria.toUpperCase()}</div>}
 
       {type === "talento" && (
         <div style={{ marginBottom: 24, display: "grid", gap: 14 }}>
           {[
-            ["ID Ático", item.id_atico || item.id],
-            ["Número", item.numero],
+            ["ID Ático", item.id_atico],
             ["Área", item.area],
-            ["Rol principal", item.rol_principal],
-            ["Tiempo en Ático", item.tiempo_en_atico],
-            ["Actividades frecuentes", item.actividades_frecuentes],
-            ["Proyectos frecuentes", item.proyectos_frecuentes],
-            ["Proyectos positivos", item.proyectos_positivos],
-            ["Equipos utilizados", item.equipos_utilizados],
-            ["Software / tecnologías", item.software_tecnologias],
+            ["Proyectos referentes", item.proyectos_positivos],
+            ["Herramientas / Equipos", item.equipos_utilizados],
+            ["Software / Tecnologías", item.software_tecnologias],
             ["Espacios de trabajo", item.espacios_trabajo],
-            ["Proyectos preferidos", item.proyectos_preferidos],
+            ["Interés en proyectos de tipo", item.proyectos_preferidos],
             ["Áreas a explorar", item.areas_explorar],
-            ["Otras habilidades", item.otras_habilidades],
-            ["Proyectos de mayor aporte", item.proyectos_mayor_aporte],
-            ["Nuevos proyectos", item.nuevos_proyectos],
-            ["Característica destacada", item.caracteristica_destacada],
-            ["Perfil en 3 palabras", item.perfil_tres_palabras],
+            ["Habilidades adicionales", item.otras_habilidades],
+            ["Proyectos en los que quiere participar", item.proyectos_mayor_aporte],
           ].filter(([_, value]) => value).map(([label, value]) => (
             <div key={label}>
               <div style={{ fontSize: 11, color: "#ffffff44", fontFamily: "'DM Mono', monospace", textTransform: "uppercase", letterSpacing: "0.18em", marginBottom: 6 }}>{label}</div>
@@ -555,7 +603,7 @@ function DetailPanel({ item, type, onClose }) {
         <>
           {relatedSpaces.length > 0 && (
             <div style={{ marginBottom: 24 }}>
-              <div style={{ fontSize: 12, color: "#ffffff66", fontFamily: "'DM Mono', monospace", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 10 }}>Espacios necesarios</div>
+              <div style={{ fontSize: 12, color: "#ffffff66", fontFamily: "'DM Mono', monospace", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 10 }}>Espacios</div>
               <div style={{ display: "grid", gap: 10 }}>
                 {relatedSpaces.map(space => (
                   <div key={space.id} style={{ padding: 14, borderRadius: 14, background: "rgba(255,255,255,0.04)", border: `1px solid ${COLORS.espacio}22`, color: "#fff" }}>
@@ -569,7 +617,7 @@ function DetailPanel({ item, type, onClose }) {
 
           {relatedEquipos.length > 0 && (
             <div style={{ marginBottom: 24 }}>
-              <div style={{ fontSize: 12, color: "#ffffff66", fontFamily: "'DM Mono', monospace", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 10 }}>Equipos necesarios</div>
+              <div style={{ fontSize: 12, color: "#ffffff66", fontFamily: "'DM Mono', monospace", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 10 }}>Equipos</div>
               <div style={{ display: "grid", gap: 10 }}>
                 {relatedEquipos.map(eq => (
                   <div key={eq.id} style={{ padding: 14, borderRadius: 14, background: "rgba(255,255,255,0.04)", border: `1px solid ${COLORS.equipo}22`, color: "#fff" }}>
@@ -583,12 +631,12 @@ function DetailPanel({ item, type, onClose }) {
 
           {relatedTalento.length > 0 && (
             <div style={{ marginBottom: 28 }}>
-              <div style={{ fontSize: 12, color: "#ffffff66", fontFamily: "'DM Mono', monospace", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 10 }}>Talento humano necesario</div>
+              <div style={{ fontSize: 12, color: "#ffffff66", fontFamily: "'DM Mono', monospace", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 10 }}>Talento humano</div>
               <div style={{ display: "grid", gap: 10 }}>
                 {relatedTalento.map(t => (
                   <div key={t.id} style={{ padding: 14, borderRadius: 14, background: "rgba(255,255,255,0.04)", border: `1px solid ${COLORS.talento}22`, color: "#fff" }}>
-                    <div style={{ fontSize: 13, fontWeight: 700 }}>{t.area}</div>
-                    <div style={{ fontSize: 12, color: "#ffffff88", marginTop: 4 }}>{t.perfil}</div>
+                    <div style={{ fontSize: 13, fontWeight: 700 }}>{t.rol_principal}</div>
+                    <div style={{ fontSize: 11, color: COLORS.talento + "99", marginTop: 4, fontFamily: "'DM Mono', monospace" }}>{t.area}</div>
                   </div>
                 ))}
               </div>
@@ -641,14 +689,16 @@ function CardsGrid({ data, type, color, onSelect }) {
         };
         const getDescription = () => {
           if (type === "talento") {
-            return item.caracteristica_destacada || item.actividades_frecuentes?.substring(0, 60) || "";
+            const desc = item.descripcion || item.caracteristica_destacada || item.actividades_frecuentes || "";
+            return desc.length > 90 ? desc.substring(0, 88) + "…" : desc;
           }
           return item.descripcion || "";
         };
         const getSecondaryInfo = () => {
           if (type === "talento") {
-            const espacios = item.espacios_trabajo?.split(';')[0]?.trim();
-            return `${item.area}${espacios ? ' • ' + espacios : ''}`;
+            const raw = item.espacios_trabajo || '';
+            const primer = raw.split(/[,;]/)[0]?.trim();
+            return `${item.area}${primer ? ' • ' + primer : ''}`;
           }
           return item.area || "";
         };
@@ -667,9 +717,10 @@ function CardsGrid({ data, type, color, onSelect }) {
               </>
             ) : (
               <>
+                {type === "proyecto" && item.subtitulo && <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, color: color + "99", letterSpacing: "0.1em", marginBottom: 6 }}>{item.subtitulo}</div>}
                 <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 600, fontSize: 15, color: "#fff", lineHeight: 1.4, marginBottom: 8 }}>{item.perfil || item.nombre || item.area}</div>
-                <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "#ffffff66", lineHeight: 1.6 }}>{(item.rol_principal || item.descripcion || item.palabras || item.proyectos_frecuentes || item.actividades_frecuentes || "").substring(0, 90)}…</div>
-                {item.area && item.perfil && <div style={{ marginTop: 12, fontSize: 10, fontFamily: "'DM Mono', monospace", color: color + "99", letterSpacing: "0.15em" }}>{item.area.toUpperCase()}</div>}
+                <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "#ffffff66", lineHeight: 1.6 }}>{(item.descripcion || item.rol_principal || "").substring(0, 90)}…</div>
+                {type === "proyecto" && item.audiencia && <div style={{ marginTop: 10, fontSize: 10, fontFamily: "'DM Mono', monospace", color: "#ffffff44", lineHeight: 1.4 }}>{item.audiencia.substring(0, 60)}</div>}
               </>
             )}
           </div>
@@ -728,7 +779,7 @@ function AticoPlatform() {
           {navItems.map(n => (
             <button key={n.key} onClick={() => setActiveSection(prev => prev === n.key ? null : n.key)}
               style={{ padding: "7px 14px", borderRadius: 20, border: `1px solid ${activeSection === n.key ? n.color : n.color + "44"}`, background: activeSection === n.key ? n.color + "22" : "transparent", color: activeSection === n.key ? n.color : "#ffffff66", fontSize: 12, fontFamily: "'DM Mono', monospace", letterSpacing: "0.05em", cursor: "pointer", transition: "all 0.2s" }}>
-              {n.label} <span style={{ opacity: 0.6 }}>{n.count}</span>
+              {n.label}
             </button>
           ))}
         </div>
@@ -796,7 +847,7 @@ function AticoPlatform() {
 
               {/* LEGEND */}
               <div style={{ position: "absolute", bottom: 24, left: 32, display: "flex", gap: 16, alignItems: "center", background: "rgba(0,0,0,0.6)", backdropFilter: "blur(10px)", padding: "12px 20px", borderRadius: 12, border: "1px solid rgba(255,255,255,0.1)", zIndex: 20 }}>
-                {[["Proyectos", COLORS.proyecto], ["Espacios", COLORS.espacio], ["Equipos", COLORS.equipo], ["Talento", COLORS.talento]].map(([l, c]) => (
+                {[["Posibles Proyectos", COLORS.proyecto], ["Espacios", COLORS.espacio], ["Equipos", COLORS.equipo], ["Talento Humano", COLORS.talento]].map(([l, c]) => (
                   <div key={l} style={{ display: "flex", alignItems: "center", gap: 6, color: "#ffffff66", fontSize: 11, fontFamily: "'DM Mono', monospace", letterSpacing: "0.1em" }}>
                     <div style={{ width: 7, height: 7, borderRadius: "50%", background: c }} />
                     {l.toUpperCase()}

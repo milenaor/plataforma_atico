@@ -1,0 +1,1046 @@
+[
+  {
+    "id": 1,
+    "titulo": "Cortometraje de ficción de alta factura técnica",
+    "subtitulo": "Cine · Ficción · Producción profesional",
+    "categoria": [
+      "cine"
+    ],
+    "audiencia": "Realizadores independientes, estudiantes de cine, productoras emergentes",
+    "descripcion": "Producción completa de un cortometraje de ficción con equipamiento de nivel cinematográfico profesional. Desde preproducción hasta entrega en DCP, incluyendo rodaje, diseño de sonido, colorización y mezcla surround 5.1. Ideal para directores que tienen guion y talento actoral pero carecen de infraestructura técnica.",
+    "talento": [
+      "Operador de Cámara y Director de Fotografía",
+      "Editor y Postproductor Audiovisual",
+      "Especialista en Postproducción y Colorización",
+      "Ingeniera de Audio y Soporte Tecnológico",
+      "Director de Postproducción y Gestión Audiovisual"
+    ],
+    "espacios": [
+      "Estudio A",
+      "Laboratorio Foley",
+      "Laboratorio Film Mixing",
+      "Sala de Corrección de Color"
+    ],
+    "equipos": [
+      "Camara Sony F55",
+      "Camara Sony F3",
+      "Tripode Sachtler FSB 8",
+      "Luces ARRI kit 150w-300w-650w",
+      "Mesa de mezclas Sound devices MixPre 10",
+      "Microfonos AKG C414"
+    ],
+    "etiquetas": [
+      "DCP",
+      "Ficción",
+      "Mezcla 5.1",
+      "Cine digital",
+      "Color grading"
+    ]
+  },
+  {
+    "id": 2,
+    "titulo": "Videoclip musical de producción cinematográfica",
+    "subtitulo": "Música · Cine · Dirección de arte",
+    "categoria": [
+      "cine",
+      "musica"
+    ],
+    "audiencia": "Artistas musicales independientes, sellos discográficos, bandas emergentes",
+    "descripcion": "Producción de videoclip con estética cinematográfica usando cámaras de cine digital, iluminación profesional y postproducción de alto nivel. Una oportunidad para artistas que quieren elevar su imagen visual sin los costos de una productora comercial.",
+    "talento": [
+      "Operador de Cámara y Director de Fotografía",
+      "Especialista en Postproducción y Colorización",
+      "Diseñador Gráfico y Multimedia",
+      "Auxiliar de Producción Audiovisual"
+    ],
+    "espacios": [
+      "Estudio de TV con Croma",
+      "Sala de Corrección de Color",
+      "Laboratorio de Diseño Digital y Arte Electrónico"
+    ],
+    "equipos": [
+      "Camara Sony FX9",
+      "SteadiCam ultra",
+      "Luces Kino Celeb 200",
+      "Luces GVM 800D RGB",
+      "Luces Arrisun 12 Plus Head"
+    ],
+    "etiquetas": [
+      "Videoclip",
+      "Croma",
+      "Dirección de arte",
+      "Color grading",
+      "Música visual"
+    ]
+  },
+  {
+    "id": 3,
+    "titulo": "Documental sobre memoria cultural de comunidades",
+    "subtitulo": "Documental · Patrimonio · Impacto social",
+    "categoria": [
+      "cine",
+      "patrimonio"
+    ],
+    "audiencia": "Organizaciones culturales, comunidades locales, ONG, instituciones públicas",
+    "descripcion": "Producción documental para registrar y visibilizar memorias, prácticas culturales o relatos de comunidades que merecen preservarse. Ático aporta infraestructura técnica completa; la comunidad o institución trae la historia.",
+    "talento": [
+      "Coordinador de Gestión de Proyectos y Relacionamiento",
+      "Operador de Cámara y Director de Fotografía",
+      "Editor y Postproductor Audiovisual",
+      "Investigador de Contenidos Digitales",
+      "Ingeniera de Audio y Soporte Tecnológico"
+    ],
+    "espacios": [
+      "Estudio A",
+      "Laboratorio Film Mixing",
+      "Sala de Corrección de Color",
+      "Laboratorio Foley"
+    ],
+    "equipos": [
+      "Camara Sony F3",
+      "Camara Canon EOS R6",
+      "Grabadora de audio Zoom H6",
+      "Tripode Sachtler FSB 8",
+      "Luces Arrisun 12 Plus Head"
+    ],
+    "etiquetas": [
+      "Documental",
+      "Memoria",
+      "Comunidad",
+      "Patrimonio cultural",
+      "Impacto social"
+    ]
+  },
+  {
+    "id": 4,
+    "titulo": "Producción de serie web narrativa",
+    "subtitulo": "Serie · Ficción · Plataformas digitales",
+    "categoria": [
+      "cine",
+      "digital"
+    ],
+    "audiencia": "Creadores de contenido, guionistas independientes, productoras digitales emergentes",
+    "descripcion": "Desarrollo y producción de una serie web de ficción para plataformas digitales. Incluye dirección de actores, diseño de producción, postproducción y distribución digital. Ático permite producir con estándares de calidad televisiva sin la inversión de un canal tradicional.",
+    "talento": [
+      "Realizador Audiovisual y Gestor de Proyectos",
+      "Director de Postproducción y Gestión Audiovisual",
+      "Especialista en Postproducción y Colorización",
+      "Coordinador de Operaciones Audiovisuales",
+      "Técnico Audiovisual de Imagen"
+    ],
+    "espacios": [
+      "Estudio de TV",
+      "Estudio de TV con Croma",
+      "Sala de Corrección de Color",
+      "Laboratorio Film Mixing"
+    ],
+    "equipos": [
+      "Camara Sony F55",
+      "Camara Canon Eos I T7 rebel",
+      "Luces Kino Celeb 200",
+      "Luces ARRI kit 150w-300w-650w",
+      "Mesa de mezclas Sound devices MixPre 10"
+    ],
+    "etiquetas": [
+      "Serie web",
+      "Ficción",
+      "Streaming",
+      "Producción multicámara",
+      "Plataformas digitales"
+    ]
+  },
+  {
+    "id": 5,
+    "titulo": "Grabación y producción de EP o álbum musical",
+    "subtitulo": "Música · Grabación · Producción sonora",
+    "categoria": [
+      "musica",
+      "audio"
+    ],
+    "audiencia": "Músicos independientes, bandas, compositores, sellos discográficos emergentes",
+    "descripcion": "Grabación multicanal de un EP o álbum completo en estudios con consola SSL y tratamiento acústico profesional. Incluye grabación de instrumentos, voces, edición, mezcla y masterización. Para músicos que quieren producción de nivel mundial sin pagar un gran estudio.",
+    "talento": [
+      "Ingeniera de Audio y Soporte Tecnológico",
+      "Director de Postproducción y Gestión Audiovisual",
+      "Coordinador de Operaciones Audiovisuales"
+    ],
+    "espacios": [
+      "Estudio B",
+      "Estudio A",
+      "Laboratorios 419 y 426",
+      "Laboratorios D1 y D2"
+    ],
+    "equipos": [
+      "Microfonos AKG C414",
+      "Microfono AKG C4500 B-BC",
+      "Microfono AKG C451 B dual",
+      "Teclado Kronos de 88 teclas",
+      "Bateria acustica Gretsch Energy",
+      "Mesa de mezclas Sound devices MixPre 10"
+    ],
+    "etiquetas": [
+      "Grabación musical",
+      "Mezcla",
+      "Masterización",
+      "SSL",
+      "Producción musical"
+    ]
+  },
+  {
+    "id": 6,
+    "titulo": "Diseño sonoro para videojuegos o experiencias interactivas",
+    "subtitulo": "Diseño sonoro · Videojuegos · Audio interactivo",
+    "categoria": [
+      "audio",
+      "digital"
+    ],
+    "audiencia": "Estudios de videojuegos indie, desarrolladores de apps interactivas, artistas digitales",
+    "descripcion": "Creación de bancos de sonido, ambientes sonoros y música original para videojuegos o experiencias interactivas. Ático ofrece laboratorios de diseño sonoro, foley profesional y edición de audio para estudios que no cuentan con departamento de sonido propio.",
+    "talento": [
+      "Ingeniera de Audio y Soporte Tecnológico",
+      "Diseñador Gráfico y Multimedia",
+      "Desarrollador de Plataformas e Interactivos"
+    ],
+    "espacios": [
+      "Laboratorio Foley",
+      "Laboratorios de Edición de Audio",
+      "Laboratorio 317 - Audio Multiusuario",
+      "Laboratorio Film Mixing"
+    ],
+    "equipos": [
+      "Microfonos AKG C414",
+      "Grabadora de audio Zoom H6",
+      "Mesa de mezclas Sound devices MixPre 10"
+    ],
+    "etiquetas": [
+      "Diseño sonoro",
+      "Videojuegos",
+      "Audio interactivo",
+      "Foley",
+      "Banco de sonidos"
+    ]
+  },
+  {
+    "id": 7,
+    "titulo": "Podcast profesional de largo formato",
+    "subtitulo": "Podcast · Voz · Distribución digital",
+    "categoria": [
+      "audio",
+      "digital"
+    ],
+    "audiencia": "Periodistas, intelectuales, empresas, instituciones culturales, creadores de contenido",
+    "descripcion": "Producción de podcast con calidad de broadcast: grabación en cabinas acondicionadas, edición profesional, diseño sonoro y estrategia de distribución. Para personas o instituciones con contenido valioso que necesitan infraestructura para publicarlo bien.",
+    "talento": [
+      "Ingeniera de Audio y Soporte Tecnológico",
+      "Investigador de Contenidos Digitales",
+      "Coordinador de Contenidos Digitales"
+    ],
+    "espacios": [
+      "Laboratorio 421 - Radio",
+      "Laboratorios D1 y D2",
+      "Laboratorio de Capacitación"
+    ],
+    "equipos": [
+      "Microfono AKG C4500 B-BC",
+      "Microfonos AKG C414",
+      "Grabadora de audio Zoom H6",
+      "Mesa de mezclas Sound devices MixPre 10"
+    ],
+    "etiquetas": [
+      "Podcast",
+      "Grabación de voz",
+      "Broadcast",
+      "Distribución",
+      "Radio digital"
+    ]
+  },
+  {
+    "id": 8,
+    "titulo": "Sonorización y postproducción de piezas audiovisuales",
+    "subtitulo": "Postproducción · Mezcla · Sonido para imagen",
+    "categoria": [
+      "audio",
+      "cine"
+    ],
+    "audiencia": "Productoras que ya tienen imagen editada, cineastas, agencias de publicidad",
+    "descripcion": "Servicio de postproducción sonora completo para piezas que ya tienen imagen: diseño sonoro, foley, doblaje, mezcla surround y entrega en formatos broadcast o cine. Para productoras que tienen la imagen lista pero necesitan el audio al nivel de la imagen.",
+    "talento": [
+      "Ingeniera de Audio y Soporte Tecnológico",
+      "Director de Postproducción y Gestión Audiovisual",
+      "Editor y Postproductor Audiovisual"
+    ],
+    "espacios": [
+      "Laboratorio Foley",
+      "Laboratorio Film Mixing",
+      "Laboratorios de Edición de Audio"
+    ],
+    "equipos": [
+      "Microfonos AKG C414",
+      "Mesa de mezclas Sound devices MixPre 10",
+      "Microfono AKG C451 B dual"
+    ],
+    "etiquetas": [
+      "Mezcla 5.1",
+      "Foley",
+      "Doblaje",
+      "Postproducción sonora",
+      "DCP"
+    ]
+  },
+  {
+    "id": 9,
+    "titulo": "Concierto íntimo grabado en vivo con producción audiovisual",
+    "subtitulo": "Música en vivo · Grabación multicanal · Evento",
+    "categoria": [
+      "musica",
+      "cine"
+    ],
+    "audiencia": "Músicos, festivales culturales, espacios culturales, sellos independientes",
+    "descripcion": "Grabación de concierto íntimo en vivo con múltiples cámaras, mezcla de sonido en tiempo real y edición posterior para lanzamiento digital o en plataformas. Una sesión tipo 'Tiny Desk' con infraestructura profesional.",
+    "talento": [
+      "Operador de Cámara y Director de Fotografía",
+      "Ingeniera de Audio y Soporte Tecnológico",
+      "Editor y Postproductor Audiovisual",
+      "Técnico Audiovisual de Imagen"
+    ],
+    "espacios": [
+      "Estudio A",
+      "Estudio B",
+      "Laboratorios 419 y 426"
+    ],
+    "equipos": [
+      "Camara Sony FX9",
+      "Camara Canon EOS R6",
+      "Camara Canon Eos I T7 rebel",
+      "Microfonos AKG C414",
+      "Microfono AKG C451 B dual",
+      "Bateria acustica Gretsch Energy",
+      "Luces Kino Celeb 200"
+    ],
+    "etiquetas": [
+      "Concierto en vivo",
+      "Grabación multicanal",
+      "Sesión íntima",
+      "Multicámara",
+      "Música visual"
+    ]
+  },
+  {
+    "id": 10,
+    "titulo": "Campaña audiovisual para marca o institución",
+    "subtitulo": "Publicidad · Marca · Contenido estratégico",
+    "categoria": [
+      "digital",
+      "cine"
+    ],
+    "audiencia": "Marcas, empresas, ONG, instituciones públicas y culturales",
+    "descripcion": "Producción de piezas audiovisuales para campaña de comunicación: spot publicitario, video institucional, reel de producto o contenidos para redes sociales. Ático ofrece la infraestructura técnica y el talento para llevar una idea de brief a pantalla.",
+    "talento": [
+      "Realizador Audiovisual y Gestor de Proyectos",
+      "Coordinador de Gestión de Proyectos y Relacionamiento",
+      "Especialista en Postproducción y Colorización",
+      "Diseñador Gráfico y Multimedia"
+    ],
+    "espacios": [
+      "Estudio de TV con Croma",
+      "Sala de Corrección de Color",
+      "Laboratorio de Diseño Digital y Arte Electrónico"
+    ],
+    "equipos": [
+      "Camara Sony FX9",
+      "Luces Kino Celeb 200",
+      "Luces GVM 800D RGB",
+      "Mesa de mezclas Sound devices MixPre 10"
+    ],
+    "etiquetas": [
+      "Publicidad",
+      "Spot",
+      "Video institucional",
+      "Marca",
+      "Contenido estratégico"
+    ]
+  },
+  {
+    "id": 11,
+    "titulo": "Serie de cápsulas educativas para plataformas LMS",
+    "subtitulo": "Educación · E-learning · Contenido digital",
+    "categoria": [
+      "digital",
+      "educacion"
+    ],
+    "audiencia": "Universidades, colegios, empresas con programas de formación interna, EdTech",
+    "descripcion": "Diseño pedagógico y producción audiovisual de cápsulas educativas para plataformas de aprendizaje en línea. Incluye guionización, grabación, animación, motion graphics y entrega en formatos SCORM. Para instituciones que quieren digitalizar su conocimiento con calidad.",
+    "talento": [
+      "Líder de Proyectos Digitales Educativos",
+      "Diseñador Tecno-Pedagógico de Contenidos Virtuales",
+      "Consultor Tecno-Pedagógico y LMS",
+      "Diseñador Gráfico y Multimedia",
+      "Especialista en Postproducción y Colorización"
+    ],
+    "espacios": [
+      "Laboratorio de Capacitación",
+      "Laboratorio Hipermedial",
+      "Laboratorio de Diseño Digital y Arte Electrónico"
+    ],
+    "equipos": [
+      "Camara Canon EOS R6",
+      "Luces Arrisun 12 Plus Head",
+      "Microfono AKG C4500 B-BC",
+      "Grabadora de audio Zoom H6"
+    ],
+    "etiquetas": [
+      "E-learning",
+      "Cápsulas educativas",
+      "LMS",
+      "Motion graphics",
+      "Animación"
+    ]
+  },
+  {
+    "id": 12,
+    "titulo": "Producción de contenidos para redes sociales y creadores",
+    "subtitulo": "Social media · Creadores · Contenido digital",
+    "categoria": [
+      "digital"
+    ],
+    "audiencia": "Creadores de contenido, influencers, microempresas, emprendedores creativos",
+    "descripcion": "Sesiones de producción intensiva de contenido para redes sociales: reels, videos cortos, fotografía de producto, minidocumentales y contenido de marca personal. Para creadores que quieren subir la calidad visual sin montar un estudio propio.",
+    "talento": [
+      "Auxiliar de Producción Audiovisual",
+      "Técnico Audiovisual de Imagen",
+      "Diseñador Gráfico y Multimedia",
+      "Coordinador de Contenidos Digitales"
+    ],
+    "espacios": [
+      "Estudio de TV con Croma",
+      "Laboratorio de Capacitación",
+      "Laboratorio Hipermedial"
+    ],
+    "equipos": [
+      "Camara Canon EOS R6",
+      "Camara Canon Eos I T7 rebel",
+      "Luces GVM 800D RGB",
+      "Luces Kino Celeb 200",
+      "Microfono AKG C4500 B-BC"
+    ],
+    "etiquetas": [
+      "Redes sociales",
+      "Reels",
+      "Contenido digital",
+      "Marca personal",
+      "Fotografía"
+    ]
+  },
+  {
+    "id": 13,
+    "titulo": "Animación 2D y motion graphics para comunicación",
+    "subtitulo": "Animación · Motion · Diseño en movimiento",
+    "categoria": [
+      "digital"
+    ],
+    "audiencia": "Agencias de comunicación, marcas, instituciones educativas, ONG",
+    "descripcion": "Producción de piezas de animación 2D y motion graphics para explicar conceptos, narrar historias o fortalecer comunicación visual. Desde infografías animadas hasta piezas narrativas complejas. Para quienes necesitan comunicar algo visual sin recurrir a cámara.",
+    "talento": [
+      "Diseñador Gráfico y Multimedia",
+      "Especialista en Postproducción y Colorización",
+      "Líder de Proyectos Digitales Educativos"
+    ],
+    "espacios": [
+      "Laboratorio de Diseño Digital y Arte Electrónico",
+      "Laboratorio de Capacitación"
+    ],
+    "equipos": [
+      "Luces GVM 800D RGB"
+    ],
+    "etiquetas": [
+      "Animación 2D",
+      "Motion graphics",
+      "Infografía animada",
+      "Diseño en movimiento",
+      "After Effects"
+    ]
+  },
+  {
+    "id": 14,
+    "titulo": "Producción de revista o medio digital audiovisual",
+    "subtitulo": "Periodismo · Multimedia · Medios digitales",
+    "categoria": [
+      "digital",
+      "periodismo"
+    ],
+    "audiencia": "Medios alternativos, colectivos periodísticos, revistas culturales, periodistas independientes",
+    "descripcion": "Producción de un medio o revista digital con contenidos audiovisuales: entrevistas en video, reportajes documentales cortos, podcast y cobertura multimedia. Ático pone la infraestructura; el medio pone la línea editorial.",
+    "talento": [
+      "Investigador de Contenidos Digitales",
+      "Coordinadora de Proyectos de Contenidos",
+      "Realizador Audiovisual y Gestor de Proyectos",
+      "Coordinador de Contenidos Digitales"
+    ],
+    "espacios": [
+      "Laboratorio Hipermedial",
+      "Laboratorio 421 - Radio",
+      "Estudio de TV"
+    ],
+    "equipos": [
+      "Camara Canon EOS R6",
+      "Grabadora de audio Zoom H6",
+      "Microfono AKG C4500 B-BC",
+      "Luces Arrisun 12 Plus Head"
+    ],
+    "etiquetas": [
+      "Periodismo digital",
+      "Multimedia",
+      "Revista digital",
+      "Reportaje",
+      "Medios alternativos"
+    ]
+  },
+  {
+    "id": 15,
+    "titulo": "Experiencia de realidad virtual para museos y exposiciones",
+    "subtitulo": "VR · Museos · Patrimonio inmersivo",
+    "categoria": [
+      "inmersivo",
+      "patrimonio"
+    ],
+    "audiencia": "Museos, centros culturales, espacios de exposición, fundaciones de patrimonio",
+    "descripcion": "Creación de experiencias de realidad virtual para museos y espacios culturales: recorridos inmersivos, reconstrucciones históricas o narrativas interactivas. Para instituciones que quieren ampliar su propuesta expositiva con tecnología sin invertir en un equipo técnico propio.",
+    "talento": [
+      "Líder de UX y Experiencias Virtuales",
+      "Diseñadora UX / Humanidades Digitales",
+      "Desarrollador de Plataformas e Interactivos",
+      "Coordinador de Digitalización y Preservación Digital"
+    ],
+    "espacios": [
+      "Laboratorio Mocap",
+      "Laboratorio de Diseño Digital y Arte Electrónico",
+      "Laboratorios de Edición de Audio"
+    ],
+    "equipos": [
+      "Gafas Oculus Quest 2",
+      "Camara 360 Insta One",
+      "Mesa de mezclas Sound devices MixPre 10"
+    ],
+    "etiquetas": [
+      "VR",
+      "Museo digital",
+      "Patrimonio inmersivo",
+      "Recorrido virtual",
+      "Experiencia interactiva"
+    ]
+  },
+  {
+    "id": 16,
+    "titulo": "Video 360° para turismo, arquitectura o eventos",
+    "subtitulo": "Video 360° · Turismo · Arquitectura virtual",
+    "categoria": [
+      "inmersivo",
+      "digital"
+    ],
+    "audiencia": "Agencias de turismo, estudios de arquitectura, organizadores de eventos, hoteles",
+    "descripcion": "Producción de contenido en video 360° para recorridos virtuales de espacios: propiedades arquitectónicas, destinos turísticos, sedes de eventos o instalaciones industriales. Para empresas que quieren mostrar sus espacios de forma inmersiva sin equipo técnico propio.",
+    "talento": [
+      "Técnico Audiovisual de Imagen",
+      "Especialista en Postproducción y Colorización",
+      "Diseñadora UX / Humanidades Digitales"
+    ],
+    "espacios": [
+      "Laboratorio de Diseño Digital y Arte Electrónico",
+      "Sala de Corrección de Color"
+    ],
+    "equipos": [
+      "Camara 360 Insta One",
+      "Gafas Oculus Quest 2",
+      "Grabadora de audio Zoom H6"
+    ],
+    "etiquetas": [
+      "Video 360°",
+      "Recorrido virtual",
+      "Turismo",
+      "Arquitectura",
+      "VR"
+    ]
+  },
+  {
+    "id": 17,
+    "titulo": "Performance audiovisual con motion capture en vivo",
+    "subtitulo": "Performance · Mocap · Arte digital en vivo",
+    "categoria": [
+      "inmersivo",
+      "arte"
+    ],
+    "audiencia": "Artistas escénicos, compañías de danza, artistas visuales digitales, festivales de arte",
+    "descripcion": "Producción de performance artística que integra captura de movimiento en tiempo real con visuales generativos y diseño sonoro. Para artistas escénicos y compañías que quieren explorar el cruce entre cuerpo, tecnología y espacio digital.",
+    "talento": [
+      "Operador de Cámara y Director de Fotografía",
+      "Diseñadora UX / Humanidades Digitales",
+      "Ingeniera de Audio y Soporte Tecnológico",
+      "Desarrollador de Plataformas e Interactivos"
+    ],
+    "espacios": [
+      "Laboratorio Mocap",
+      "Laboratorio de Diseño Digital y Arte Electrónico",
+      "Laboratorios de Edición de Audio"
+    ],
+    "equipos": [
+      "Luces GVM 800D RGB",
+      "Microfonos AKG C414",
+      "Mesa de mezclas Sound devices MixPre 10"
+    ],
+    "etiquetas": [
+      "Motion capture",
+      "Performance",
+      "Arte digital",
+      "Visuales en vivo",
+      "Danza y tecnología"
+    ]
+  },
+  {
+    "id": 18,
+    "titulo": "Instalación audiovisual para espacios urbanos o galerías",
+    "subtitulo": "Arte electrónico · Instalación · Espacio público",
+    "categoria": [
+      "inmersivo",
+      "arte"
+    ],
+    "audiencia": "Artistas visuales, curadores, galerías de arte, alcaldías, festivales urbanos",
+    "descripcion": "Creación de instalaciones audiovisuales para espacios de exposición o intervención urbana: video mapping, ambientes sonoros espaciales e interacción con el público. Para artistas que tienen la idea pero necesitan producción técnica especializada.",
+    "talento": [
+      "Diseñadora UX / Humanidades Digitales",
+      "Ingeniera de Audio y Soporte Tecnológico",
+      "Diseñador Gráfico y Multimedia",
+      "Operador de Cámara y Director de Fotografía"
+    ],
+    "espacios": [
+      "Laboratorio de Diseño Digital y Arte Electrónico",
+      "Laboratorio 317 - Audio Multiusuario",
+      "Laboratorios de Edición de Audio"
+    ],
+    "equipos": [
+      "Luces GVM 800D RGB",
+      "Camara 360 Insta One",
+      "Mesa de mezclas Sound devices MixPre 10",
+      "Microfonos AKG C414"
+    ],
+    "etiquetas": [
+      "Video mapping",
+      "Instalación",
+      "Arte electrónico",
+      "Espacio público",
+      "Audio espacial"
+    ]
+  },
+  {
+    "id": 19,
+    "titulo": "Digitalización de archivos audiovisuales analógicos",
+    "subtitulo": "Digitalización · Patrimonio · Archivo",
+    "categoria": [
+      "patrimonio"
+    ],
+    "audiencia": "Familias, archivos históricos, cinematecas, fundaciones, medios de comunicación",
+    "descripcion": "Digitalización profesional de material audiovisual analógico: VHS, Betamax, MiniDV, Hi8, film en 8mm. Con catalogación, control de calidad y entrega en formatos de preservación. Para quienes tienen material valioso en formatos obsoletos que está deteriorándose.",
+    "talento": [
+      "Coordinador de Digitalización y Preservación Digital",
+      "Coordinador de Contenidos Digitales",
+      "Especialista de Soporte Tecnológico e Infraestructura Audiovisual"
+    ],
+    "espacios": [
+      "Laboratorio de Digitalización"
+    ],
+    "equipos": [
+      "Camara Canon EOS R6",
+      "Mesa de mezclas Sound devices MixPre 10"
+    ],
+    "etiquetas": [
+      "Digitalización",
+      "VHS",
+      "Betamax",
+      "Preservación audiovisual",
+      "Archivo analógico"
+    ]
+  },
+  {
+    "id": 20,
+    "titulo": "Documental de archivo con material digitalizado",
+    "subtitulo": "Documental · Archivo · Narrativa histórica",
+    "categoria": [
+      "patrimonio",
+      "cine"
+    ],
+    "audiencia": "Archivos históricos, instituciones culturales, familias, fundaciones de memoria",
+    "descripcion": "A partir de material de archivo digitalizado, producción de un documental que construya narrativa histórica o memoria afectiva. Combina el laboratorio de digitalización con postproducción audiovisual completa.",
+    "talento": [
+      "Coordinador de Digitalización y Preservación Digital",
+      "Editor y Postproductor Audiovisual",
+      "Coordinadora de Proyectos de Contenidos",
+      "Ingeniera de Audio y Soporte Tecnológico"
+    ],
+    "espacios": [
+      "Laboratorio de Digitalización",
+      "Laboratorios de Edición de Audio",
+      "Sala de Corrección de Color"
+    ],
+    "equipos": [
+      "Camara Sony F3",
+      "Mesa de mezclas Sound devices MixPre 10",
+      "Microfonos AKG C414"
+    ],
+    "etiquetas": [
+      "Documental de archivo",
+      "Historia",
+      "Memoria",
+      "Restauración digital",
+      "Narrativa histórica"
+    ]
+  },
+  {
+    "id": 21,
+    "titulo": "Registro audiovisual de patrimonio cultural inmaterial",
+    "subtitulo": "Patrimonio intangible · Etnografía audiovisual · Cultura",
+    "categoria": [
+      "patrimonio",
+      "cine"
+    ],
+    "audiencia": "Ministerios de cultura, etnógrafos, comunidades indígenas, institutos culturales",
+    "descripcion": "Registro audiovisual profesional de prácticas culturales, saberes tradicionales, rituales, fiestas populares y oficios artesanales que constituyen patrimonio cultural inmaterial. Para instituciones y comunidades que quieren preservar lo que no se puede guardar en un anaquel.",
+    "talento": [
+      "Investigador de Contenidos Digitales",
+      "Operador de Cámara y Director de Fotografía",
+      "Ingeniera de Audio y Soporte Tecnológico",
+      "Editor y Postproductor Audiovisual"
+    ],
+    "espacios": [
+      "Laboratorio de Digitalización",
+      "Sala de Corrección de Color",
+      "Laboratorio Film Mixing"
+    ],
+    "equipos": [
+      "Camara Sony FX9",
+      "Camara Canon EOS R6",
+      "Grabadora de audio Zoom H6",
+      "Tripode Sachtler FSB 8",
+      "Luces Arrisun 12 Plus Head"
+    ],
+    "etiquetas": [
+      "Patrimonio intangible",
+      "Etnografía",
+      "Cultura popular",
+      "Comunidades",
+      "Registro audiovisual"
+    ]
+  },
+  {
+    "id": 22,
+    "titulo": "Taller de formación técnica audiovisual para creadores",
+    "subtitulo": "Formación · Talleres · Capacitación técnica",
+    "categoria": [
+      "educacion"
+    ],
+    "audiencia": "Jóvenes creadores, periodistas, comunicadores sociales, emprendedores culturales",
+    "descripcion": "Programa de talleres prácticos intensivos sobre producción audiovisual, grabación de sonido, iluminación, colorización y postproducción. Para personas que quieren aprender haciendo, con equipos profesionales reales. Ático como escuela de práctica.",
+    "talento": [
+      "Coordinador de Formación Técnica Audiovisual",
+      "Asesor de Recursos Audiovisuales",
+      "Coordinador de Tecnología Audiovisual y TI",
+      "Facilitador de Servicios Audiovisuales"
+    ],
+    "espacios": [
+      "Laboratorio de Capacitación",
+      "Estudio de TV con Croma",
+      "Laboratorios 419 y 426"
+    ],
+    "equipos": [
+      "Camara Canon Eos I T7 rebel",
+      "Luces ARRI kit 150w-300w-650w",
+      "Grabadora de audio Zoom H6",
+      "Microfono AKG C4500 B-BC"
+    ],
+    "etiquetas": [
+      "Talleres",
+      "Formación técnica",
+      "Capacitación",
+      "Aprendizaje práctico",
+      "Producción audiovisual"
+    ]
+  },
+  {
+    "id": 23,
+    "titulo": "Bootcamp de producción musical para jóvenes",
+    "subtitulo": "Música · Formación · Industria musical",
+    "categoria": [
+      "educacion",
+      "musica"
+    ],
+    "audiencia": "Jóvenes músicos, beatmakers, productores emergentes, programas de responsabilidad social",
+    "descripcion": "Bootcamp intensivo de producción musical donde participantes aprenden a componer, grabar, mezclar y masterizar en estudios profesionales. Incluye acceso a instrumentos, software de producción y mentoría por profesionales de la industria.",
+    "talento": [
+      "Ingeniera de Audio y Soporte Tecnológico",
+      "Coordinador de Formación Técnica Audiovisual",
+      "Director de Postproducción y Gestión Audiovisual"
+    ],
+    "espacios": [
+      "Laboratorios D1 y D2",
+      "Laboratorios de Edición de Audio",
+      "Laboratorio de Capacitación"
+    ],
+    "equipos": [
+      "Teclado Kronos de 88 teclas",
+      "Bateria acustica Gretsch Energy",
+      "Microfonos AKG C414",
+      "Mesa de mezclas Sound devices MixPre 10"
+    ],
+    "etiquetas": [
+      "Bootcamp",
+      "Producción musical",
+      "Jóvenes",
+      "Industria musical",
+      "Mentoría"
+    ]
+  },
+  {
+    "id": 24,
+    "titulo": "Diplomado en narrativas digitales para profesionales",
+    "subtitulo": "Diplomado · Narrativa · Formación continua",
+    "categoria": [
+      "educacion",
+      "digital"
+    ],
+    "audiencia": "Profesionales de comunicación, marketing, gestión cultural, periodismo",
+    "descripcion": "Programa de formación continua en narrativas digitales, storytelling audiovisual e identidad de marca en medios digitales. Combina teoría, práctica en laboratorios y producción de un proyecto final. Para profesionales que necesitan actualizar sus habilidades en el ecosistema digital.",
+    "talento": [
+      "Líder de Proyectos Digitales Educativos",
+      "Consultor Tecno-Pedagógico y LMS",
+      "Coordinadora de Proyectos de Contenidos",
+      "Diseñador de Experiencias de Aprendizaje"
+    ],
+    "espacios": [
+      "Laboratorio de Capacitación",
+      "Laboratorio Hipermedial",
+      "Laboratorio de Diseño Digital y Arte Electrónico"
+    ],
+    "equipos": [
+      "Camara Canon EOS R6",
+      "Grabadora de audio Zoom H6",
+      "Luces Arrisun 12 Plus Head"
+    ],
+    "etiquetas": [
+      "Diplomado",
+      "Narrativas digitales",
+      "Storytelling",
+      "Formación continua",
+      "Profesionales"
+    ]
+  },
+  {
+    "id": 25,
+    "titulo": "Transmisión en vivo de eventos culturales y académicos",
+    "subtitulo": "Streaming · Live · Producción de eventos",
+    "categoria": [
+      "digital",
+      "cine"
+    ],
+    "audiencia": "Festivales, teatros, universidades, organizadores de conferencias, instituciones públicas",
+    "descripcion": "Producción y transmisión en vivo de eventos: conciertos, obras de teatro, conferencias, lanzamientos y ceremonias. Incluye señal multicámara, mezcla de sonido en vivo, streaming y archivo del evento. Para eventos que merecen llegar más allá del lugar físico.",
+    "talento": [
+      "Coordinador de Operaciones Audiovisuales",
+      "Técnico Audiovisual de Imagen",
+      "Mediador Tecnológico Audiovisual",
+      "Ingeniera de Audio y Soporte Tecnológico"
+    ],
+    "espacios": [
+      "Estudio de TV",
+      "Estudio de TV con Croma",
+      "Laboratorio Hipermedial"
+    ],
+    "equipos": [
+      "Camara Sony F55",
+      "Camara Canon Eos I T7 rebel",
+      "Camara Canon EOS R6",
+      "Mesa de mezclas Sound devices MixPre 10",
+      "Luces Kino Celeb 200"
+    ],
+    "etiquetas": [
+      "Streaming",
+      "Live",
+      "Multicámara",
+      "Transmisión en vivo",
+      "Eventos culturales"
+    ]
+  },
+  {
+    "id": 26,
+    "titulo": "Programa de radio o magazine audiovisual en vivo",
+    "subtitulo": "Radio · Magazine · Broadcast en vivo",
+    "categoria": [
+      "audio",
+      "digital"
+    ],
+    "audiencia": "Emisoras comunitarias, colectivos periodísticos, instituciones educativas, marcas con audiencias fieles",
+    "descripcion": "Producción de un programa de radio o magazine audiovisual en formato broadcast con emisión en vivo o grabado. Incluye cabina de radio profesional, consola de mezclas y posibilidad de transmisión simultánea por múltiples canales.",
+    "talento": [
+      "Investigador de Contenidos Digitales",
+      "Ingeniera de Audio y Soporte Tecnológico",
+      "Coordinador de Contenidos Digitales",
+      "Auxiliar de Producción Audiovisual"
+    ],
+    "espacios": [
+      "Laboratorio 421 - Radio",
+      "Laboratorio 317 - Audio Multiusuario",
+      "Estudio de TV con Croma"
+    ],
+    "equipos": [
+      "Microfono AKG C4500 B-BC",
+      "Microfonos AKG C414",
+      "Mesa de mezclas Sound devices MixPre 10",
+      "Camara Canon EOS R6"
+    ],
+    "etiquetas": [
+      "Radio",
+      "Magazine",
+      "Broadcast",
+      "Emisión en vivo",
+      "Podcast audiovisual"
+    ]
+  },
+  {
+    "id": 27,
+    "titulo": "Prototipado de experiencias interactivas con IA",
+    "subtitulo": "Innovación · IA · Experiencias interactivas",
+    "categoria": [
+      "digital",
+      "inmersivo"
+    ],
+    "audiencia": "Startups tecnológicas, laboratorios de innovación, empresas de entretenimiento, investigadores",
+    "descripcion": "Desarrollo y prototipado de experiencias interactivas que integran inteligencia artificial con producción audiovisual: narrativas adaptativas, personajes digitales, instalaciones reactivas. Para equipos de innovación que quieren experimentar en la frontera entre IA y medios.",
+    "talento": [
+      "Coordinador de Tecnología Audiovisual y TI",
+      "Desarrollador de Plataformas e Interactivos",
+      "Líder de UX y Experiencias Virtuales",
+      "Diseñadora UX / Humanidades Digitales"
+    ],
+    "espacios": [
+      "Laboratorio de Diseño Digital y Arte Electrónico",
+      "Laboratorio Mocap",
+      "Laboratorio de Capacitación"
+    ],
+    "equipos": [
+      "Gafas Oculus Quest 2",
+      "Camara 360 Insta One",
+      "Luces GVM 800D RGB"
+    ],
+    "etiquetas": [
+      "IA generativa",
+      "Interactivo",
+      "Prototipado",
+      "Innovación",
+      "Narrativas adaptativas"
+    ]
+  },
+  {
+    "id": 28,
+    "titulo": "Producción virtual con fondos LED o croma avanzado",
+    "subtitulo": "Producción virtual · Croma · Efectos visuales",
+    "categoria": [
+      "cine",
+      "inmersivo"
+    ],
+    "audiencia": "Productoras de publicidad, canales de TV, creadores de contenido premium, marcas",
+    "descripcion": "Producción audiovisual con técnicas de producción virtual: fondos de croma con integración de entornos digitales en tiempo real, efectos visuales en set y composición avanzada. Para producciones que necesitan trasladar a sus personajes a cualquier lugar del mundo o universo.",
+    "talento": [
+      "Coordinador de Tecnología Audiovisual y TI",
+      "Especialista en Postproducción y Colorización",
+      "Operador de Cámara y Director de Fotografía",
+      "Diseñador Gráfico y Multimedia"
+    ],
+    "espacios": [
+      "Estudio de TV con Croma",
+      "Laboratorio de Diseño Digital y Arte Electrónico",
+      "Sala de Corrección de Color"
+    ],
+    "equipos": [
+      "Camara Sony FX9",
+      "Luces Kino Celeb 200",
+      "Luces GVM 800D RGB",
+      "SteadiCam ultra"
+    ],
+    "etiquetas": [
+      "Producción virtual",
+      "Croma key",
+      "VFX",
+      "Efectos visuales",
+      "Unreal Engine"
+    ]
+  },
+  {
+    "id": 29,
+    "titulo": "Animación 3D y modelado para industrias creativas",
+    "subtitulo": "Animación 3D · Modelado · Visualización",
+    "categoria": [
+      "digital",
+      "arte"
+    ],
+    "audiencia": "Estudios de arquitectura, empresas de diseño de producto, agencias creativas, videojuegos indie",
+    "descripcion": "Producción de animaciones 3D, visualizaciones arquitectónicas, prototipos digitales y modelado para industrias creativas y técnicas. Con workstations NVIDIA Quadro y software especializado como Rhinoceros y SketchUp Pro.",
+    "talento": [
+      "Diseñador Gráfico y Multimedia",
+      "Diseñadora UX / Humanidades Digitales",
+      "Especialista en Postproducción y Colorización"
+    ],
+    "espacios": [
+      "Laboratorio de Diseño Digital y Arte Electrónico",
+      "Sala de Corrección de Color"
+    ],
+    "equipos": [
+      "Luces GVM 800D RGB"
+    ],
+    "etiquetas": [
+      "Animación 3D",
+      "Modelado",
+      "Visualización arquitectónica",
+      "Rhinoceros",
+      "NVIDIA Quadro"
+    ]
+  },
+  {
+    "id": 30,
+    "titulo": "Residencia artística de creación audiovisual",
+    "subtitulo": "Residencia · Arte · Creación experimental",
+    "categoria": [
+      "arte",
+      "cine"
+    ],
+    "audiencia": "Artistas audiovisuales, colectivos de arte, residencias culturales, festivales de arte contemporáneo",
+    "descripcion": "Programa de residencia artística para creadores audiovisuales que quieren desarrollar un proyecto experimental con acceso total a la infraestructura de Ático. Incluye acompañamiento técnico, espacios de trabajo y presentación final de la obra. Para artistas que tienen una idea radical y necesitan el espacio y las herramientas para materializarla.",
+    "talento": [
+      "Coordinador de Gestión de Proyectos y Relacionamiento",
+      "Operador de Cámara y Director de Fotografía",
+      "Ingeniera de Audio y Soporte Tecnológico",
+      "Facilitador de Servicios Audiovisuales",
+      "Coordinadora de Proyectos de Contenidos"
+    ],
+    "espacios": [
+      "Estudio A",
+      "Laboratorio de Diseño Digital y Arte Electrónico",
+      "Laboratorio Mocap",
+      "Laboratorio Foley",
+      "Sala de Corrección de Color"
+    ],
+    "equipos": [
+      "Camara Sony FX9",
+      "Camara Sony F55",
+      "SteadiCam ultra",
+      "Gafas Oculus Quest 2",
+      "Camara 360 Insta One",
+      "Microfonos AKG C414",
+      "Luces GVM 800D RGB",
+      "Mesa de mezclas Sound devices MixPre 10"
+    ],
+    "etiquetas": [
+      "Residencia artística",
+      "Arte experimental",
+      "Creación libre",
+      "Arte audiovisual",
+      "Obra artística"
+    ]
+  }
+]

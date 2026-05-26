@@ -1,0 +1,138 @@
+window.espaciosRaw = [
+  {
+    "Tipo": "Laboratorios",
+    "Nombre": "Laboratorio de Diseño Digital y Arte Electrónico",
+    "Descripción": "9 salas equipadas con workstations Windows 10 y tarjetas NVIDIA Quadro. Incluye Adobe Creative Cloud, Rhinoceros, SketchUp Pro y DaVinci Resolve para diseño 3D, postproducción audiovisual, animación y modelado arquitectónico.",
+    "Info": "9 salas",
+    "Info 2": "Workstations NVIDIA Quadro",
+    "Etiqueta": "Diseño digital, Arte electrónico, Modelado 3D, Animación, Postproducción audiovisual, Arquitectura digital, Visualización, Workstations de alto rendimiento"
+  },
+  {
+    "Tipo": "Laboratorios",
+    "Nombre": "Laboratorio de Capacitación",
+    "Descripción": "Espacios para capacitación en software especializado y proyectos de edición. 1 sala con workstations Windows con NVIDIA y 2 iMac para flujos de trabajo en edición audiovisual, diseño gráfico y motion graphics.",
+    "Info": "Sala + 2 iMac",
+    "Info 2": "Windows + macOS",
+    "Etiqueta": "Capacitación tecnológica, Edición audiovisual, Diseño gráfico, Motion graphics, Formación digital, Producción multimedia"
+  },
+  {
+    "Tipo": "Laboratorios",
+    "Nombre": "Laboratorio Foley",
+    "Descripción": "Especializado en captura de foleys, diseño sonoro y sonido para cine. Diseño acústico con aislamiento, preamplificadores de audio, monitoreo surround y cuarto de drops. Optimizado para cine.",
+    "Info": "Producción sonora",
+    "Info 2": "Monitoreo surround",
+    "Etiqueta": "Foley, Diseño sonoro, Sonido para cine, Grabación acústica, Postproducción sonora, Audio cinematográfico, Surround"
+  },
+  {
+    "Tipo": "Laboratorios",
+    "Nombre": "Laboratorio Film Mixing",
+    "Descripción": "Estudio de mezcla para audiovisuales con sistema surround MEYER SOUND 5.1, 3 Pro Tools Ultimate HD, AVID DCONTROL con 64 faders, telón microperforado 2x4m y proyector SONY 1920x1080. Finalización en DCP, Dolby Digital y DMU.",
+    "Info": "Dual Operator",
+    "Info 2": "Meyer Sound 5.1 + Pro Tools HD",
+    "Etiqueta": "Mezcla surround 5.1, Postproducción audiovisual, Cine digital, Dolby Digital, DCP, Pro Tools HD, Mezcla profesional, Finalización audiovisual"
+  },
+  {
+    "Tipo": "Laboratorios",
+    "Nombre": "Laboratorios de Edición de Audio",
+    "Descripción": "Salas individuales para edición de audio con AVID, Pro Tools, Adobe Suite, Logic Pro X, Ableton y Pure Data. Aislamiento acústico optimizado para grabación.",
+    "Info": "Individual",
+    "Info 2": "Pro Tools + Logic Pro X",
+    "Etiqueta": "Edición de audio, Producción musical, Diseño sonoro, Grabación, Pro Tools, Ableton, Logic Pro, Experimentación sonora"
+  },
+  {
+    "Tipo": "Laboratorios",
+    "Nombre": "Laboratorio 421 - Radio",
+    "Descripción": "Laboratorio de radio para grabación y transmisión en vivo. Adobe CC 2020, cámara Logitech Brio 4K, TV Sony 60\", interfaz Mbox Pro, consola Sonifex S2, 6 micrófonos ElectroVoice RE27 y reproductor Blu-ray.",
+    "Info": "6 micrófonos",
+    "Info 2": "Consola Sonifex + RE27",
+    "Etiqueta": "Radio, Transmisión en vivo, Podcast, Producción radial, Streaming, Grabación de voz, Comunicación sonora"
+  },
+  {
+    "Tipo": "Laboratorios",
+    "Nombre": "Laboratorio 317 - Audio Multiusuario",
+    "Descripción": "Sistema de monitoreo 5.1 Genelec, interfaz AUDIENT EVO 16, 6 micrófonos RE27 en cabina. Adobe Suite, Pro Tools, Logic Pro X y Ableton. Optimizado para radio, voces y mezcla surround.",
+    "Info": "Multiusuario",
+    "Info 2": "Genelec 5.1 + Audient",
+    "Etiqueta": "Mezcla surround, Producción radial, Grabación de voces, Audio colaborativo, Música, Postproducción sonora"
+  },
+  {
+    "Tipo": "Laboratorios",
+    "Nombre": "Laboratorios 419 y 426",
+    "Descripción": "15 computadores con live room para ingeniería de sonido y música. Interfaz AUDIENT EVO 16, monitoreo BX5 y BX8. Optimizado para grabación musical en bloque, doblaje y mezcla.",
+    "Info": "15 estaciones",
+    "Info 2": "Audient + BX5/BX8",
+    "Etiqueta": "Ingeniería de sonido, Grabación musical, Mezcla de audio, Doblaje, Producción musical colaborativa, Live room"
+  },
+  {
+    "Tipo": "Laboratorios",
+    "Nombre": "Laboratorios D1 y D2",
+    "Descripción": "Live room para máximo 3 personas en cabina y master. Especializados en grabación de voces e instrumentos con monitoreo 5.1 para edición y mezcla musical.",
+    "Info": "3 personas",
+    "Info 2": "Monitoreo 5.1",
+    "Etiqueta": "Grabación de voces, Producción musical, Mezcla musical, Monitoreo 5.1, Cabina de grabación, Audio profesional"
+  },
+  {
+    "Tipo": "Laboratorios",
+    "Nombre": "Estudio A",
+    "Descripción": "Estudio de grabación profesional con 48 canales, superficie D-Command, 6 clósets independientes. Capacidad para 35 músicos. Mac Pro, Pro Tools Ultimate HD, Logic Pro X, Reason 9. Parlantes ADAM S3X-V 5.1, preamplificadores API/SSL/MANLEY, reverberación Lexicon PCM96.",
+    "Info": "35 músicos",
+    "Info 2": "D-Command + ADAM 5.1",
+    "Etiqueta": "Estudio de grabación profesional, Producción musical avanzada, Grabación multicanal, Mezcla profesional, Música en vivo, Audio de alta gama"
+  },
+  {
+    "Tipo": "Laboratorios",
+    "Nombre": "Estudio B",
+    "Descripción": "Estudio con 48 canales, consola SSL Duality y 3 cabinas de grabación. Preamplificación, procesamiento y efectos analógicos/digitales. Live room para múltiples músicos con diferentes espacios arquitectónicos.",
+    "Info": "Múltiples músicos",
+    "Info 2": "SSL Duality",
+    "Etiqueta": "Grabación profesional, Consola SSL, Producción musical, Procesamiento analógico, Live room, Mezcla avanzada"
+  },
+  {
+    "Tipo": "Laboratorios",
+    "Nombre": "Estudio de TV con Croma",
+    "Descripción": "134 m² con Croma Key, ciclorama blanco, parrilla caminable, iluminación profesional y 3 cámaras Sony HD + 1 robótica. Ideal para streaming, TV, podcasts, videos musicales y producciones multicámara.",
+    "Info": "Producción multicámara",
+    "Info 2": "134 m²",
+    "Etiqueta": "Producción televisiva, Croma Key, Streaming, Producción multicámara, Podcast audiovisual, Videoclips, TV digital"
+  },
+  {
+    "Tipo": "Laboratorios",
+    "Nombre": "Estudio de TV",
+    "Descripción": "185 m² para magazines, dramatizados y formatos audiovisuales. Parrilla caminable, iluminación completa, 4 cámaras Sony HD + 1 robótica integradas a control master.",
+    "Info": "4 cámaras + 1 robótica",
+    "Info 2": "185 m²",
+    "Etiqueta": "Producción televisiva, Dramatizados, Magazines, Producción multicámara, Broadcast, Escenografía audiovisual"
+  },
+  {
+    "Tipo": "Laboratorios",
+    "Nombre": "Laboratorio Hipermedial",
+    "Descripción": "Sala especializada para noticiero en vivo o pregrabado. 18 computadores con Adobe Premiere y software Inception para automatización completa de noticias.",
+    "Info": "18 estaciones",
+    "Info 2": "Inception + Premiere",
+    "Etiqueta": "Noticias digitales, Producción periodística, Automatización de noticias, Edición de video, Broadcast digital, Comunicación multimedia"
+  },
+  {
+    "Tipo": "Laboratorios",
+    "Nombre": "Sala de Corrección de Color",
+    "Descripción": "Estación de trabajo con monitor 4K, panel de control de color y software de edición. Procesos de experimentación y ajuste en HD, 2K, 4K y HDR. Workstation DELL con tarjeta gráfica de alto rendimiento.",
+    "Info": "Individual",
+    "Info 2": "Monitor 4K + Panel color",
+    "Etiqueta": "Corrección de color, Color grading, Postproducción audiovisual, HDR, Cine digital, Experimentación visual, 4K"
+  },
+  {
+    "Tipo": "Laboratorios",
+    "Nombre": "Laboratorio Mocap",
+    "Descripción": "Motion Capture Vicon con 8 cámaras de alta precisión, electromiografía y placas de fuerza. Software Shogun Post y Live. Para animación digital, videojuegos, análisis biomecánico y simulaciones.",
+    "Info": "Captura profesional",
+    "Info 2": "8 cámaras Vicon",
+    "Etiqueta": "Motion capture, Animación digital, Videojuegos, Biomecánica, Simulación digital, Captura de movimiento, Nuevos medios"
+  },
+  {
+    "Tipo": "Laboratorios",
+    "Nombre": "Laboratorio de Digitalización",
+    "Descripción": "Espacio para digitalización de archivos electromagnéticos en formatos Betacam, VHS, cassettes y otros formatos analógicos.",
+    "Info": "Digitalización",
+    "Info 2": "Múltiples formatos",
+    "Etiqueta": "Preservación audiovisual, Digitalización de archivos, Memoria audiovisual, Archivos analógicos, Restauración digital, Patrimonio audiovisual"
+  }
+];

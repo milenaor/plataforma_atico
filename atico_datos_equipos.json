@@ -1,0 +1,122 @@
+[
+  {
+    "Tipo": "equipos",
+    "Nombre": "Microfonos AKG C414",
+    "Descripción": "2 micrófonos de condensador duales y 1 multipatrón versátil, ideal para grabar voces, instrumentos acústicos y amplificadores, con opciones de patrones polares ajustables para adaptarse a diferentes situaciones de grabación",
+    "Eqtiquetas": "Producción sonora y grabación, Música y estudio, Podcast y voz, Diseño sonoro, Producción audiovisual"
+  },
+  {
+    "Tipo": "equipos",
+    "Nombre": "Microfono AKG C4500 B-BC",
+    "Descripción": "2 micrófonos duales de condensador de gran diafragma con patrón polar cardioide. Es ideal para grabar voces, instrumentos acústicos y amplificadores, ofreciendo un sonido claro, detallado y con un leve realce en los agudos para mayor presencia. Su diseño robusto y su atenuación de graves lo hacen versátil en estudios de grabación y transmisiones",
+    "Eqtiquetas": "Producción sonora y grabación, Voz y locución, Podcast, Broadcast, Estudio musical"
+  },
+  {
+    "Tipo": "equipos",
+    "Nombre": "Microfono AKG C451 B dual",
+    "Descripción": "4 micrófonos duales de condensador de pequeño diafragma, ideal para grabar instrumentos brillantes como platillos, guitarras acústicas o violines",
+    "Eqtiquetas": "Grabación de instrumentos acústicos, Música y performance, Producción sonora, Captura detallada de audio"
+  },
+  {
+    "Tipo": "equipos",
+    "Nombre": "Camara Sony F3",
+    "Descripción": "3 cámaras de cine digital con sensor Super 35mm, gran rendimiento en low light. Viene con lentes intercambiables de 35-50-85mm de distancia focal fija, y accesorios como memorias de grabación, baterías intercambiables, mattebox de 4x5, rain cover y maletín de transporte",
+    "Eqtiquetas": "Producción cinematográfica, Cine digital, Rodajes narrativos, Documental, Producción en exteriores"
+  },
+  {
+    "Tipo": "equipos",
+    "Nombre": "Camara Canon Eos I T7 rebel",
+    "Descripción": "5 cámaras DSLR básicas con sensor APS-C, para usar en fotografía y video",
+    "Eqtiquetas": "Fotografía y creación híbrida, Contenido digital, Producción audiovisual básica, Cobertura de eventos"
+  },
+  {
+    "Tipo": "equipos",
+    "Nombre": "Camara Sony F55",
+    "Descripción": "2 cámaras 4K con sensor global shutter, profesional para cine y broadcast. Cuenta con follow focus, mattebox para usar filtros 4x5, ópticas intercambiables de 20, 25, 35, 50, 85 y 135mm de distancia focal fija, y accesorios como memorias de grabación, baterías intercambiables, rain cover y maletín de transporte",
+    "Eqtiquetas": "Cine profesional, Producción broadcast, Producción cinematográfica, Publicidad, Rodajes de alta gama"
+  },
+  {
+    "Tipo": "equipos",
+    "Nombre": "Luces Arrisun 12 Plus Head",
+    "Descripción": "4 focos LED de 12W, luz intensa y compacta para estudios o exteriores",
+    "Eqtiquetas": "Iluminación para estudio, Producción audiovisual, Rodajes en exteriores, Iluminación portátil"
+  },
+  {
+    "Tipo": "equipos",
+    "Nombre": "Luces Kino Celeb 200",
+    "Descripción": "3 paneles LED bicolores (3200K-5600K) con difusión cinematográfica para sets profesionales",
+    "Eqtiquetas": "Iluminación cinematográfica, Entrevistas, Estudios profesionales, Producción audiovisual"
+  },
+  {
+    "Tipo": "equipos",
+    "Nombre": "Luces ARRI kit 150w-300w-650w",
+    "Descripción": "4 kits de 4 luces fresnels para cubrir todas las necesidades de iluminación básica",
+    "Eqtiquetas": "Iluminación básica de cine, Producción audiovisual, Fotografía, Escenografía"
+  },
+  {
+    "Tipo": "equipos",
+    "Nombre": "Teclado Kronos de 88 teclas",
+    "Descripción": "1 teclado musical profesional con acción martillada, sonidos de alta calidad y motor de síntesis múltiple",
+    "Eqtiquetas": "Producción musical, Composición, Performance, Música para audiovisuales, Experimentación sonora"
+  },
+  {
+    "Tipo": "equipos",
+    "Nombre": "Bateria acustica Gretsch Energy",
+    "Descripción": "1 batería acústica con hardware completo para creaciones musicales",
+    "Eqtiquetas": "Interpretación musical, Grabación musical, Performance, Ensayos musicales"
+  },
+  {
+    "Tipo": "equipos",
+    "Nombre": "Grabadora de audio Zoom H6",
+    "Descripción": "3 grabadoras portátiles de 6 entradas XLR con preamps de bajo ruido y pantalla táctil, solución todo-en-uno para field recording",
+    "Eqtiquetas": "Field recording, Producción sonora, Podcast, Sonido directo, Producción móvil"
+  },
+  {
+    "Tipo": "equipos",
+    "Nombre": "Tripode Sachtler FSB 8",
+    "Descripción": "21 trípodes con cabeza fluida profesional para cámaras medianas, con arrastre ajustable",
+    "Eqtiquetas": "Producción cinematográfica, Estabilización de cámara, Rodajes profesionales, Documental"
+  },
+  {
+    "Tipo": "equipos",
+    "Nombre": "SteadiCam ultra",
+    "Descripción": "1 estabilizador profesional para tomas fluidas con cámaras medianas o grandes",
+    "Eqtiquetas": "Captura en movimiento, Cine y acción, Producción audiovisual, Tomas fluidas"
+  },
+  {
+    "Tipo": "equipos",
+    "Nombre": "Gafas Oculus Quest 2",
+    "Descripción": "4 visores VR standalone con pantalla 4K y controles intuitivos para gaming y experiencias inmersivas",
+    "Eqtiquetas": "Realidad virtual, Narrativas inmersivas, Gaming, Nuevos medios, Experiencias XR"
+  },
+  {
+    "Tipo": "equipos",
+    "Nombre": "Camara 360 Insta One",
+    "Descripción": "2 cámaras para grabar contenido 360° compactas con estabilización FlowState, ideal para contenido VR",
+    "Eqtiquetas": "Video 360°, Realidad virtual, Narrativas inmersivas, Producción interactiva"
+  },
+  {
+    "Tipo": "equipos",
+    "Nombre": "Camara Sony FX9",
+    "Descripción": "3 cámaras de cine alta 6K Full-Frame con autofocus y modularidad para cine y documentales",
+    "Eqtiquetas": "Cine digital, Documental, Producción en exteriores, Producción cinematográfica avanzada"
+  },
+  {
+    "Tipo": "equipos",
+    "Nombre": "Camara Canon EOS R6",
+    "Descripción": "10 cámaras Mirrorless Full-Frame con 4K, IBIS y AF Dual Pixel CMOS II para video y fotografía",
+    "Eqtiquetas": "Fotografía profesional, Video 4K, Producción híbrida, Contenido digital, Cobertura audiovisual"
+  },
+  {
+    "Tipo": "equipos",
+    "Nombre": "Luces GVM 800D RGB",
+    "Descripción": "4 kits de 3 luces tipo panel LED RGB bicolor con control remoto para efectos creativos",
+    "Eqtiquetas": "Iluminación creativa, Producción audiovisual, Performance, Instalaciones audiovisuales, Efectos visuales"
+  },
+  {
+    "Tipo": "equipos",
+    "Nombre": "Mesa de mezclas Sound devices MixPre 10",
+    "Descripción": "5 grabadores/mezcladores de 10 canales con preamps de bajo ruido",
+    "Eqtiquetas": "Producción sonora profesional, Grabación multicanal, Sonido directo, Podcast, Diseño sonoro"
+  }
+]
