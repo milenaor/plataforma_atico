@@ -293,7 +293,7 @@ function IntroAnimation({ onFinish }) {
 // ─── COMPONENT: 3D GRAPH ─────────────────────────────────────────────────────
 function Graph3D({ activeSection, searchQuery, zoom, onZoomChange, onNodeClick }) {
   const canvasRef = useRef(null);
-  const stateRef = useRef({ rotX: 0.3, rotY: 0.4, dragging: false, moved: false, lastX: 0, lastY: 0, autoRot: false, zoom: zoom || 1, animProgress: 0, perspProgress: 0, perspDelay: 0 });
+  const stateRef = useRef({ rotX: 0.3, rotY: 0.4, dragging: false, moved: false, lastX: 0, lastY: 0, autoRot: false, zoom: zoom || 1, animProgress: 0, perspProgress: 0, perspDelay: 0, hoveredId: null });
   const animRef = useRef(null);
   const nodesRef = useRef([]);
   const edgesRef = useRef([]);
@@ -315,28 +315,28 @@ function Graph3D({ activeSection, searchQuery, zoom, onZoomChange, onNodeClick }
       const t = sampleProyectos.length > 1 ? i / (sampleProyectos.length - 1) : 0.5;
       const elevation = (t - 0.5) * Math.PI * 0.62;
       const r = 175 + (i % 3) * 18;
-      nodes.push({ id: p.id, label: p.nombre.substring(0, 22) + "…", type: "proyecto", color: COLORS.proyecto, x: Math.cos(azimuth) * Math.cos(elevation) * r, y: Math.sin(elevation) * r, z: Math.sin(azimuth) * Math.cos(elevation) * r, data: p, size: 19, startT: i * 0.006 });
+      nodes.push({ id: p.id, label: p.nombre, type: "proyecto", color: COLORS.proyecto, x: Math.cos(azimuth) * Math.cos(elevation) * r, y: Math.sin(elevation) * r, z: Math.sin(azimuth) * Math.cos(elevation) * r, data: p, size: 19, startT: i * 0.006 });
     });
 
     // Espacios: hemisferio superior
     sampleEspacios.forEach((e, i) => {
       const angle = (i / sampleEspacios.length) * Math.PI * 2 + 0.4;
       const r = 245 + Math.random() * 50;
-      nodes.push({ id: e.id, label: e.nombre.substring(0, 20), type: "espacio", color: COLORS.espacio, x: Math.cos(angle) * r, y: 170 + Math.random() * 100, z: Math.sin(angle) * r, data: e, size: 9, startT: 0.25 + i * 0.006 });
+      nodes.push({ id: e.id, label: e.nombre, type: "espacio", color: COLORS.espacio, x: Math.cos(angle) * r, y: 170 + Math.random() * 100, z: Math.sin(angle) * r, data: e, size: 9, startT: 0.25 + i * 0.006 });
     });
 
     // Equipos: hemisferio inferior
     sampleEquipos.forEach((e, i) => {
       const angle = (i / sampleEquipos.length) * Math.PI * 2 + 0.9;
       const r = 245 + Math.random() * 50;
-      nodes.push({ id: e.id, label: e.nombre.substring(0, 18), type: "equipo", color: COLORS.equipo, x: Math.cos(angle) * r, y: -170 - Math.random() * 100, z: Math.sin(angle) * r, data: e, size: 9, startT: 0.25 + i * 0.006 });
+      nodes.push({ id: e.id, label: e.nombre, type: "equipo", color: COLORS.equipo, x: Math.cos(angle) * r, y: -170 - Math.random() * 100, z: Math.sin(angle) * r, data: e, size: 9, startT: 0.25 + i * 0.006 });
     });
 
     // Talento: anillo exterior ecuatorial
     sampleTalento.forEach((t, i) => {
       const angle = (i / sampleTalento.length) * Math.PI * 2 + 1.3;
       const r = 275 + Math.random() * 40;
-      nodes.push({ id: t.id, label: t.area, type: "talento", color: COLORS.talento, x: Math.cos(angle) * r, y: (Math.random() - 0.5) * 60, z: Math.sin(angle) * r, data: t, size: 9, startT: 0.15 + i * 0.006 });
+      nodes.push({ id: t.id, label: t.rol_principal || t.area, type: "talento", color: COLORS.talento, x: Math.cos(angle) * r, y: (Math.random() - 0.5) * 60, z: Math.sin(angle) * r, data: t, size: 9, startT: 0.15 + i * 0.006 });
     });
 
     const edges = [];
@@ -361,7 +361,12 @@ function Graph3D({ activeSection, searchQuery, zoom, onZoomChange, onNodeClick }
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
 
-    const resize = () => { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; };
+    const resize = () => {
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = canvas.offsetWidth * dpr;
+      canvas.height = canvas.offsetHeight * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
     resize();
     window.addEventListener("resize", resize);
 
@@ -379,7 +384,7 @@ function Graph3D({ activeSection, searchQuery, zoom, onZoomChange, onNodeClick }
       // perspT=0 → perspectiva completa; perspT=1 → ortográfica (sin efecto de profundidad)
       const perspT = easeInOutCubic(perspProgress);
       const scale = (fov / (fov + (z3 + 200) * (1 - perspT))) * zoom;
-      return { px: canvas.width / 2 + x2 * scale, py: canvas.height / 2 + y2 * scale, scale, z: z3 };
+      return { px: canvas.offsetWidth / 2 + x2 * scale, py: canvas.offsetHeight / 2 + y2 * scale, scale, z: z3 };
     };
 
     // easeOutBack: llega al destino con ~10% de overshoot antes de asentarse (efecto explosión)
@@ -406,7 +411,7 @@ function Graph3D({ activeSection, searchQuery, zoom, onZoomChange, onNodeClick }
       // Rotación automática suave (solo tras completar expansión)
       if (!s.dragging && s.autoRot) s.rotY += 0.0008;
 
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
 
       const q = searchQuery?.toLowerCase() || "";
 
@@ -420,6 +425,30 @@ function Graph3D({ activeSection, searchQuery, zoom, onZoomChange, onNodeClick }
       projected.sort((a, b) => a.z - b.z);
       projectedRef.current = projected;
 
+      const hoveredId = s.hoveredId;
+      const connectedIds = hoveredId ? new Set(
+        edgesRef.current.filter(e => e.from === hoveredId || e.to === hoveredId).flatMap(e => [e.from, e.to])
+      ) : null;
+
+      // helper: wrap text into max 2 lines
+      const wrapLabel = (text, maxWidth) => {
+        const words = text.split(' ');
+        const lines = [];
+        let current = '';
+        for (const word of words) {
+          const test = current ? current + ' ' + word : word;
+          if (ctx.measureText(test).width <= maxWidth) {
+            current = test;
+          } else {
+            if (current) lines.push(current);
+            current = word;
+            if (lines.length >= 1) break;
+          }
+        }
+        if (current) lines.push(current);
+        return lines.slice(0, 2);
+      };
+
       // Aristas: solo visibles cuando ambos extremos han empezado a moverse
       edgesRef.current.forEach(e => {
         const fn = projected.find(n => n.id === e.from);
@@ -427,23 +456,42 @@ function Graph3D({ activeSection, searchQuery, zoom, onZoomChange, onNodeClick }
         if (!fn || !tn) return;
         const edgeFade = Math.min(fn.fadeIn, tn.fadeIn) * Math.min(fn.animEased, tn.animEased);
         if (edgeFade < 0.05) return;
+        const isHighlighted = hoveredId && (e.from === hoveredId || e.to === hoveredId);
+        const isDimmedEdge = hoveredId && !isHighlighted;
         ctx.beginPath();
         ctx.moveTo(fn.px, fn.py);
         ctx.lineTo(tn.px, tn.py);
-        // Extraer color base y aplicar edgeFade
         const baseColor = e.color.slice(0, 7);
-        const edgeOpacity = Math.round(edgeFade * 0.45 * 255).toString(16).padStart(2, "0");
-        ctx.strokeStyle = baseColor + edgeOpacity;
-        ctx.lineWidth = 0.65;
+        if (isHighlighted) {
+          ctx.strokeStyle = baseColor + "ee";
+          ctx.lineWidth = 2;
+        } else if (isDimmedEdge) {
+          ctx.strokeStyle = baseColor + "12";
+          ctx.lineWidth = 0.5;
+        } else {
+          ctx.strokeStyle = baseColor + Math.round(edgeFade * 0.45 * 255).toString(16).padStart(2, "0");
+          ctx.lineWidth = 0.65;
+        }
         ctx.stroke();
       });
 
       projected.forEach(n => {
         const isActive = activeSection === "all" || activeSection === n.type + "s" || !activeSection;
-        const isMatch = !q || n.label.toLowerCase().includes(q) || n.data?.descripcion?.toLowerCase().includes(q);
+        const isMatch = !q ||
+          n.label.toLowerCase().includes(q) ||
+          (n.data?.descripcion || '').toLowerCase().includes(q) ||
+          (n.data?.subtitulo || '').toLowerCase().includes(q) ||
+          (n.data?.audiencia || '').toLowerCase().includes(q) ||
+          (n.data?.categorias || []).some(c => c.toLowerCase().includes(q)) ||
+          (n.data?.tags || []).some(t => t.toLowerCase().includes(q));
+        const isHovered = n.id === hoveredId;
+        const isConnected = connectedIds && connectedIds.has(n.id) && !isHovered;
+        const isDimmedByHover = hoveredId && !isHovered && !isConnected;
+
         const baseAlpha = (!isMatch && q) ? 0.12 : (isActive ? 1 : 0.25);
-        const alpha = baseAlpha * n.fadeIn;
-        const r = n.size * n.scale * (isMatch && q ? 1.6 : 1);
+        const alpha = baseAlpha * n.fadeIn * (isDimmedByHover ? 0.25 : 1);
+        const sizeBoost = isHovered ? 1.35 : isConnected ? 1.15 : 1;
+        const r = n.size * n.scale * (isMatch && q ? 1.6 : 1) * sizeBoost;
 
         const glowMult = n.type === "proyecto" ? 2.2 : 2.8;
         const grd = ctx.createRadialGradient(n.px, n.py, 0, n.px, n.py, r * glowMult);
@@ -459,12 +507,23 @@ function Graph3D({ activeSection, searchQuery, zoom, onZoomChange, onNodeClick }
         ctx.fillStyle = n.color + Math.round(alpha * 255).toString(16).padStart(2, "0");
         ctx.fill();
 
-        if (((n.type === "proyecto" && n.scale > 0.78) || n.scale > 0.95) && isActive && n.fadeIn > 0.5) {
-          ctx.fillStyle = `rgba(255,255,255,${alpha * 0.85})`;
-          const fontSize = n.type === "proyecto" ? Math.max(11, 13 * n.scale) : Math.max(8, 9 * n.scale);
+
+        const currentZoom = stateRef.current.zoom;
+        const labelAlpha = n.type === "proyecto"
+          ? Math.max(0, Math.min(1, (currentZoom - 1.2) / 0.5))
+          : Math.max(0, Math.min(1, (currentZoom - 1.6) / 0.6));
+        const effectiveLabelAlpha = isHovered ? Math.max(labelAlpha, 0.95) : isConnected ? Math.max(labelAlpha, 0.75) : labelAlpha;
+        if (effectiveLabelAlpha > 0.01 && isActive && n.fadeIn > 0.5) {
+          const fontSize = n.type === "proyecto" ? 9 : 7;
           ctx.font = `${fontSize}px 'DM Mono', monospace`;
           ctx.textAlign = "center";
-          ctx.fillText(n.label, n.px, n.py + r + fontSize * 1.1);
+          ctx.fillStyle = `rgba(255,255,255,${alpha * effectiveLabelAlpha * 0.9})`;
+          const maxWidth = n.type === "proyecto" ? 95 : 75;
+          const lines = wrapLabel(n.label, maxWidth);
+          const lineHeight = fontSize * 1.45;
+          lines.forEach((line, li) => {
+            ctx.fillText(line, n.px, n.py + r + fontSize * 1.4 + li * lineHeight);
+          });
         }
       });
 
@@ -497,18 +556,30 @@ function Graph3D({ activeSection, searchQuery, zoom, onZoomChange, onNodeClick }
     };
 
     const handleMove = e => {
-      if (!stateRef.current.dragging) return;
       const touch = e.touches?.[0];
-      const cx = e.clientX || touch?.clientX;
-      const cy = e.clientY || touch?.clientY;
-      const dx = cx - stateRef.current.lastX;
-      const dy = cy - stateRef.current.lastY;
-      if (Math.hypot(dx, dy) > 2) stateRef.current.moved = true;
-      stateRef.current.rotY += dx * 0.007;
-      stateRef.current.rotX += dy * 0.007;
-      stateRef.current.lastX = cx;
-      stateRef.current.lastY = cy;
+      if (stateRef.current.dragging) {
+        const cx = e.clientX || touch?.clientX;
+        const cy = e.clientY || touch?.clientY;
+        const dx = cx - stateRef.current.lastX;
+        const dy = cy - stateRef.current.lastY;
+        if (Math.hypot(dx, dy) > 2) stateRef.current.moved = true;
+        stateRef.current.rotY += dx * 0.007;
+        stateRef.current.rotX += dy * 0.007;
+        stateRef.current.lastX = cx;
+        stateRef.current.lastY = cy;
+      } else {
+        const rect = canvas.getBoundingClientRect();
+        const x = (e.clientX || touch?.clientX) - rect.left;
+        const y = (e.clientY || touch?.clientY) - rect.top;
+        const hit = projectedRef.current.slice().reverse().find(n => {
+          const nr = n.size * n.scale;
+          return Math.hypot(n.px - x, n.py - y) <= Math.max(16, nr + 6);
+        });
+        stateRef.current.hoveredId = hit ? hit.id : null;
+        canvas.style.cursor = hit ? "pointer" : "grab";
+      }
     };
+    const handleLeave = () => { stateRef.current.hoveredId = null; canvas.style.cursor = "grab"; };
 
     const handleWheel = e => {
       const nextZoom = Math.max(0.4, Math.min(3, stateRef.current.zoom - e.deltaY * 0.001));
@@ -525,6 +596,7 @@ function Graph3D({ activeSection, searchQuery, zoom, onZoomChange, onNodeClick }
     window.addEventListener("mousemove", handleMove);
     window.addEventListener("touchmove", handleMove);
     canvas.addEventListener("wheel", handleWheel);
+    canvas.addEventListener("mouseleave", handleLeave);
 
     return () => {
       cancelAnimationFrame(animRef.current);
@@ -536,6 +608,7 @@ function Graph3D({ activeSection, searchQuery, zoom, onZoomChange, onNodeClick }
       window.removeEventListener("mousemove", handleMove);
       window.removeEventListener("touchmove", handleMove);
       canvas.removeEventListener("wheel", handleWheel);
+      canvas.removeEventListener("mouseleave", handleLeave);
     };
   }, [activeSection, searchQuery, onNodeClick, onZoomChange]);
 
@@ -805,28 +878,34 @@ function AticoPlatform() {
                     value={searchQuery}
                     onChange={e => setSearchQuery(e.target.value)}
                     onKeyDown={e => { if (e.key === 'Escape') setSearchQuery(''); }}
-                    style={{ width: '100%', padding: '12px 16px', borderRadius: 12, border: '1.5px solid rgba(255,255,255,0.55)', background: 'rgba(255,255,255,0.03)', color: '#fff', outline: 'none', fontSize: 14 }}
+                    style={{ width: '100%', padding: '12px 40px 12px 16px', borderRadius: 12, border: '1.5px solid rgba(255,255,255,0.55)', background: 'rgba(255,255,255,0.03)', color: '#fff', outline: 'none', fontSize: 14 }}
                   />
                   {searchQuery && (
-                    <div style={{ position: 'absolute', left: 0, right: 0, top: '54px', background: 'rgba(0,0,0,0.9)', border: '1px solid rgba(255,255,255,0.04)', borderRadius: 12, maxHeight: 260, overflow: 'auto', zIndex: 40 }}>
-                      {proyectosData.filter(p => {
-                        const q = searchQuery.toLowerCase();
-                        return p.nombre.toLowerCase().includes(q) || (p.descripcion || '').toLowerCase().includes(q) || (p.tags || []).some(t => t.toLowerCase().includes(q));
-                      }).slice(0, 8).map(p => (
-                        <div key={p.id} onClick={() => { setSelectedItem(p); setSelectedType('proyecto'); setSearchQuery(p.nombre); }}
-                          style={{ padding: 12, borderBottom: '1px solid rgba(255,255,255,0.03)', cursor: 'pointer', color: '#fff', display: 'flex', flexDirection: 'column' }}>
-                          <div style={{ fontSize: 14, fontWeight: 700 }}>{p.nombre}</div>
-                          <div style={{ fontSize: 12, color: '#ffffff88', marginTop: 6 }}>{(p.descripcion || '').substring(0, 90)}</div>
-                        </div>
-                      ))}
-                      {proyectosData.filter(p => {
-                        const q = searchQuery.toLowerCase();
-                        return p.nombre.toLowerCase().includes(q) || (p.descripcion || '').toLowerCase().includes(q) || (p.tags || []).some(t => t.toLowerCase().includes(q));
-                      }).length === 0 && (
-                        <div style={{ padding: 12, color: '#ffffff66' }}>No se encontraron proyectos</div>
-                      )}
-                    </div>
+                    <button onClick={() => setSearchQuery('')} style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#ffffff66', fontSize: 18, lineHeight: 1, padding: '0 2px', display: 'flex', alignItems: 'center' }}>✕</button>
                   )}
+                  {searchQuery && (() => {
+                    const q = searchQuery.toLowerCase();
+                    const results = proyectosData.filter(p =>
+                      p.nombre.toLowerCase().includes(q) ||
+                      (p.subtitulo || '').toLowerCase().includes(q) ||
+                      (p.descripcion || '').toLowerCase().includes(q) ||
+                      (p.audiencia || '').toLowerCase().includes(q) ||
+                      (p.categorias || []).some(c => c.toLowerCase().includes(q)) ||
+                      (p.tags || []).some(t => t.toLowerCase().includes(q))
+                    );
+                    return (
+                      <div style={{ position: 'absolute', left: 0, right: 0, top: '54px', background: 'rgba(10,10,10,0.97)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 12, maxHeight: 185, overflow: 'auto', zIndex: 40 }}>
+                        {results.length === 0 && <div style={{ padding: 14, color: '#ffffff55', fontFamily: "'DM Mono', monospace", fontSize: 12 }}>No se encontraron proyectos</div>}
+                        {results.map(p => (
+                          <div key={p.id} onClick={() => { setSelectedItem(p); setSelectedType('proyecto'); setSearchQuery(''); }}
+                            style={{ padding: '10px 14px', borderBottom: '1px solid rgba(255,255,255,0.04)', cursor: 'pointer', color: '#fff' }}>
+                            <div style={{ fontSize: 13, fontWeight: 700 }}>{p.nombre}</div>
+                            {p.subtitulo && <div style={{ fontSize: 11, color: COLORS.proyecto + "88", marginTop: 3, fontFamily: "'DM Mono', monospace" }}>{p.subtitulo}</div>}
+                          </div>
+                        ))}
+                      </div>
+                    );
+                  })()}
                 </div>
                 <p style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, color: "#ffffff33", marginBottom: 0, letterSpacing: "0.04em", marginTop: 6 }}>
                   Arrastra para rotar · Scroll para zoom · Usa botones + y − para controlar
