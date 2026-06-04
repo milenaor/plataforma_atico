@@ -267,13 +267,17 @@ function IntroAnimation({ onFinish }) {
           fontFamily: "'Space Grotesk', sans-serif",
           fontWeight: 800,
           letterSpacing: "-0.04em",
-          background: "linear-gradient(135deg, #00FF94, #00C2FF, #FF3CAC)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
+          display: "flex",
+          alignItems: "baseline",
+          justifyContent: "center",
+          gap: "0.18em",
           opacity: phase >= 1 ? 1 : 0,
           transform: phase >= 1 ? "translateY(0)" : "translateY(30px)",
           transition: "all 0.9s cubic-bezier(0.16, 1, 0.3, 1)",
-        }}>ÁTICO</div>
+        }}>
+          <span style={{ background: "linear-gradient(135deg, #00FF94, #00C2FF, #FF3CAC)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>ÁTICO</span>
+          <span style={{ background: "linear-gradient(135deg, #00C2FF, #FF3CAC, #00FF94)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", fontWeight: 600 }}>VIVO</span>
+        </div>
         <div style={{
           fontSize: "clamp(14px, 2vw, 20px)",
           fontFamily: "'DM Mono', monospace",
@@ -837,18 +841,28 @@ function AticoPlatform() {
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap');
         ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        #main-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 32px; z-index: 10; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        #main-nav { display: flex; gap: 8px; align-items: center; }
+        @media (max-width: 640px) {
+          #main-header { flex-direction: column; align-items: flex-start; gap: 10px; padding: 14px 16px; }
+          #main-nav { overflow-x: auto; width: 100%; padding-bottom: 4px; flex-wrap: nowrap; }
+          #main-nav::-webkit-scrollbar { height: 0; }
+        }
       `}</style>
 
       {showIntro && <IntroAnimation onFinish={() => setShowIntro(false)} />}
 
       {/* HEADER */}
-      <div style={{ padding: "20px 32px", display: "flex", alignItems: "center", justifyContent: "space-between", zIndex: 10, borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+      <div id="main-header">
         <button onClick={() => setActiveSection(null)} style={{ background: "none", border: "none", cursor: "pointer", textAlign: "left" }}>
-          <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 800, fontSize: 22, letterSpacing: "-0.03em", background: "linear-gradient(135deg, #00FF94, #00C2FF)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>ÁTICO</div>
+          <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 800, fontSize: 22, letterSpacing: "-0.03em", display: "flex", alignItems: "baseline", gap: 6 }}>
+            <span style={{ background: "linear-gradient(135deg, #00FF94, #00C2FF)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>ÁTICO</span>
+            <span style={{ background: "linear-gradient(135deg, #00C2FF, #00FF94)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", fontWeight: 600 }}>VIVO</span>
+          </div>
           <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 9, color: "#ffffff44", letterSpacing: "0.2em" }}>JAVERIANA</div>
         </button>
 
-        <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+        <div id="main-nav">
           {navItems.map(n => (
             <button key={n.key} onClick={() => setActiveSection(prev => prev === n.key ? null : n.key)}
               style={{ padding: "7px 14px", borderRadius: 20, border: `1px solid ${activeSection === n.key ? n.color : n.color + "66"}`, background: activeSection === n.key ? n.color + "22" : "transparent", color: activeSection === n.key ? n.color : "#ffffffcc", fontSize: 12, fontFamily: "'DM Mono', monospace", letterSpacing: "0.05em", cursor: "pointer", transition: "all 0.2s" }}>
